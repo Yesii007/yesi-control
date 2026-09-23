@@ -339,7 +339,115 @@ function anzeigen(){
 }
 
 anzeigen();
+let d = JSON.parse(localStorage.yesi || "[]");
 
+const euro = v => new Intl.NumberFormat("de-DE", {
+
+  style: "currency",
+
+  currency: "EUR"
+
+}).format(v);
+
+function speichern() {
+
+  const muenzen = Number(document.getElementById("m").value || 0);
+
+  const scheine = Number(document.getElementById("s").value || 0);
+
+  const waren = Number(document.getElementById("w").value || 0);
+
+  const standort = document.getElementById("ort").value;
+
+  const umsatz = muenzen + scheine;
+
+  const gewinn = umsatz - waren;
+
+  d.unshift({
+
+    standort,
+
+    muenzen,
+
+    scheine,
+
+    waren,
+
+    umsatz,
+
+    gewinn,
+
+    datum: new Date().toLocaleDateString("de-DE")
+
+  });
+
+  localStorage.yesi = JSON.stringify(d);
+
+  m.value = 0;
+
+  s.value = 0;
+
+  w.value = 0;
+
+  zeichnen();
+
+}
+
+function zeichnen() {
+
+  let u = 0, g = 0;
+
+  const suche = document.getElementById("suche").value.toLowerCase();
+
+  const liste = document.getElementById("list");
+
+  liste.innerHTML = "";
+
+  d.forEach((e, i) => {
+
+    u += e.umsatz;
+
+    g += e.gewinn;
+
+    if (!e.standort.toLowerCase().includes(suche)) return;
+
+    liste.innerHTML += `
+
+      <div class="item">
+
+        <b>${e.standort}</b><br>
+
+        ${e.datum}<br>
+
+        Umsatz: ${euro(e.umsatz)}<br>
+
+        <span class="g">Gewinn: ${euro(e.gewinn)}</span><br>
+
+        <button onclick="loeschen(${i})">Löschen</button>
+
+      </div>`;
+
+  });
+
+  ums.textContent = euro(u);
+
+  gew.textContent = euro(g);
+
+}
+
+function loeschen(i) {
+
+  d.splice(i,1);
+
+  localStorage.yesi = JSON.stringify(d);
+
+  zeichnen();
+
+}
+
+document.querySelector("button").onclick = speichern;
+
+zeichnen();
 </script>
 
 </body>
