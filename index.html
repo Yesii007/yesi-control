@@ -12,23 +12,31 @@
 
 <style>
 
-body{margin:0;font-family:-apple-system,Arial;background:#0b0b0b;color:#fff}
+body{margin:0;background:#0b0b0b;color:#fff;font-family:-apple-system,Arial}
 
-.header{background:#c89b2b;color:#111;padding:22px;font-size:24px;font-weight:700}
+.header{background:#c89b2b;color:#111;padding:20px;font-size:22px;font-weight:700}
 
-.wrap{padding:16px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.wrap{padding:16px}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 
 .card{background:#1b1b1b;border-radius:18px;padding:16px;margin-bottom:14px}
 
-.label{color:#aaa;font-size:13px}.value{font-size:34px;font-weight:700}
+.label{color:#aaa;font-size:13px;margin-bottom:4px}
+
+.value{font-size:32px;font-weight:700}
 
 .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 
-input,select{width:100%;box-sizing:border-box;background:#2a2a2a;color:#fff;border:none;border-radius:10px;padding:12px;margin-top:6px}
+input,select{width:100%;box-sizing:border-box;background:#2a2a2a;color:#fff;border:none;border-radius:10px;padding:12px;font-size:16px}
 
 button{width:100%;background:#c89b2b;color:#111;border:none;border-radius:12px;padding:14px;font-size:18px;font-weight:700;margin-top:14px}
 
-.item{border-top:1px solid #333;padding:10px 0}.green{color:#69e36f;font-weight:700}
+.item{border-top:1px solid #333;padding:10px 0}
+
+.green{color:#69e36f;font-weight:700}
+
+.small{color:#999;font-size:12px}
 
 </style>
 
@@ -40,71 +48,205 @@ button{width:100%;background:#c89b2b;color:#111;border:none;border-radius:12px;p
 
 <div class="wrap">
 
-<div class="grid">
+  <div class="grid">
 
-<div class="card"><div class="label">Gesamtumsatz</div><div class="value" id="umsatz">€ 0,00</div></div>
+    <div class="card"><div class="label">Gesamtumsatz</div><div class="value" id="umsatz">€ 0,00</div></div>
 
-<div class="card"><div class="label">Gesamtgewinn</div><div class="value" id="gewinn">€ 0,00</div></div>
+    <div class="card"><div class="label">Gesamtgewinn</div><div class="value" id="gewinn">€ 0,00</div></div>
 
-<div class="card"><div class="label">Heute</div><div class="value" id="heute">€ 0,00</div></div>
+    <div class="card"><div class="label">Heute</div><div class="value" id="heute">€ 0,00</div></div>
 
-<div class="card"><div class="label">Monat</div><div class="value" id="monat">€ 0,00</div></div>
+    <div class="card"><div class="label">Monat</div><div class="value" id="monat">€ 0,00</div></div>
 
-</div>
+  </div>
 
-<div class="card"><h2>Neue Entleerung</h2><select id="firma"><option>Zurndorf WA</option><option>Zurndorf WE</option><option>Bruck</option><option>Wien</option></select><div class="row"><div><div class="label">Münzen</div><input id="muenzen" type="number" value="0"></div><div><div class="label">Scheine</div><input id="scheine" type="number" value="0"></div></div><div class="label" style="margin-top:10px">Wareneinsatz</div><input id="einsatz" type="number" value="0"><button onclick="speichern()">Speichern</button></div>
+  <div class="card">
 
-<div class="card"><h2>Verlauf</h2><input id="suche" placeholder="Standort suchen..." oninput="anzeigen()"><div id="liste"></div></div>
+    <h2>Neue Entleerung</h2>
 
-<div class="card"><h2>Standort Auswertung</h2><div class="item"><b>Zurndorf WA</b><div id="wa">€ 0,00</div></div><div class="item"><b>Zurndorf WE</b><div id="we">€ 0,00</div></div><div class="item"><b>Bruck</b><div id="bruck">€ 0,00</div></div><div class="item"><b>Wien</b><div id="wien">€ 0,00</div></div></div>
+    <div class="label">Standort</div>
+
+    <select id="firma">
+
+      <option>Zurndorf WA</option>
+
+      <option>Zurndorf WE</option>
+
+      <option>Bruck</option>
+
+      <option>Wien</option>
+
+    </select>
+
+    <div class="row" style="margin-top:12px">
+
+      <div>
+
+        <div class="label">Münzen</div>
+
+        <input id="muenzen" type="number" value="0">
+
+      </div>
+
+      <div>
+
+        <div class="label">Scheine</div>
+
+        <input id="scheine" type="number" value="0">
+
+      </div>
+
+    </div>
+
+    <div class="label" style="margin-top:12px">Wareneinsatz</div>
+
+    <input id="einsatz" type="number" value="0">
+
+    <button onclick="speichern()">Speichern</button>
+
+  </div>
+
+  <div class="card">
+
+    <h2>Verlauf</h2>
+
+    <input id="suche" placeholder="Standort suchen..." oninput="anzeigen()">
+
+    <div id="liste"></div>
+
+  </div>
+
+  <div class="card">
+
+    <h2>Standort Auswertung</h2>
+
+    <div class="item"><b>Zurndorf WA</b><div id="wa">€ 0,00</div></div>
+
+    <div class="item"><b>Zurndorf WE</b><div id="we">€ 0,00</div></div>
+
+    <div class="item"><b>Bruck</b><div id="bruck">€ 0,00</div></div>
+
+    <div class="item"><b>Wien</b><div id="wien">€ 0,00</div></div>
+
+  </div>
 
 </div>
 
 <script>
 
-let daten = JSON.parse(localStorage.getItem("yesi") || "[]");
+let daten = JSON.parse(localStorage.getItem('yesi') || '[]');
 
-function euro(v){return new Intl.NumberFormat("de-AT",{style:"currency",currency:"EUR"}).format(v)}
+function euro(v){
 
-function speichern() {
+  return new Intl.NumberFormat('de-AT',{
 
-  const firma = document.getElementById("firma").value;
+    style:'currency',currency:'EUR'
 
-  const m = Number(document.getElementById("muenzen").value || 0);
+  }).format(v);
 
-  const s = Number(document.getElementById("scheine").value || 0);
+}
 
-  const e = Number(document.getElementById("einsatz").value || 0);
+function speichern(){
 
-  const umsatz = m + s;
+  const firma=document.getElementById('firma').value;
 
-  const profit = umsatz - e;
+  const muenzen=Number(document.getElementById('muenzen').value)||0;
+
+  const scheine=Number(document.getElementById('scheine').value)||0;
+
+  const einsatz=Number(document.getElementById('einsatz').value)||0;
+
+  const umsatz=muenzen+scheine;
+
+  const profit=umsatz-einsatz;
 
   daten.unshift({
 
-    firma, muenzen: m, scheine: s,
+    firma,muenzen,scheine,einsatz,umsatz,profit,
 
-    einsatz: e, umsatz, profit,
-
-    datum: new Date().toISOString()
+    datum:new Date().toISOString()
 
   });
 
-  localStorage.setItem("yesi", JSON.stringify(daten));
+  localStorage.setItem('yesi',JSON.stringify(daten));
 
-  document.getElementById("muenzen").value = 0;
+  document.getElementById('muenzen').value=0;
 
-  document.getElementById("scheine").value = 0;
+  document.getElementById('scheine').value=0;
 
-  document.getElementById("einsatz").value = 0;
+  document.getElementById('einsatz').value=0;
 
   anzeigen();
 
 }
 
-function loeschen(i){daten.splice(i,1);localStorage.setItem("yesi",JSON.stringify(daten));anzeigen()}
+function loeschen(i){
 
-function anzeigen(){let gesamt=0,gew=0,heute=0,monat=0;let standorte={"Zurndorf WA":0,"Zurndorf WE":0,"Bruck":0,"Wien":0};const liste=document.getElementById("liste");liste.innerHTML="";const filter=document.getElementById("suche").value.toLowerCase();const heuteStr=new Date().toLocaleDateString("de-AT");const mon=new Date().getMonth();daten.forEach((x,i)=>{const d=new Date(x.datum);const ds=d.toLocaleDateString("de-AT");gesamt+=x.umsatz;gew+=x.profit;if(ds===heuteStr)heute+=x.umsatz;if(d.getMonth()===mon)monat+=x.umsatz;standorte[x.firma]+=x.umsatz;if(x.firma.toLowerCase().includes(filter)){liste.innerHTML+=`<div class="item"><b>${x.firma}</b><br><small>${ds}</small><br>Umsatz: ${euro(x.umsatz)}<br><span class="green">Gewinn: ${euro(x.profit)}</span><br><button onclick="loeschen(${i})">Löschen</button></div>`}});umsatz.innerText=euro(gesamt);gewinn.innerText=euro(gew);heute.innerText=euro(heute);monat.innerText=euro(monat);wa.innerText=euro(standorte["Zurndorf WA"]);we.innerText=euro(standorte["Zurndorf WE"]);bruck.innerText=euro(standorte["Bruck"]);wien.innerText=euro(standorte["Wien"])}
+  daten.splice(i,1);
+
+  localStorage.setItem('yesi',JSON.stringify(daten));
+
+  anzeigen();
+
+}
+
+function anzeigen(){
+
+  let gesamt=0,gew=0,heut=0,mon=0;
+
+  const stand={"Zurndorf WA":0,"Zurndorf WE":0,"Bruck":0,"Wien":0};
+
+  const liste=document.getElementById('liste');
+
+  const filter=document.getElementById('suche').value.toLowerCase();
+
+  liste.innerHTML='';
+
+  const heuteStr=new Date().toLocaleDateString('de-AT');
+
+  const monatNr=new Date().getMonth();
+
+  daten.forEach((x,i)=>{
+
+    const d=new Date(x.datum);
+
+    const ds=d.toLocaleDateString('de-AT');
+
+    gesamt+=x.umsatz;
+
+    gew+=x.profit;
+
+    if(ds===heuteStr) heut+=x.umsatz;
+
+    if(d.getMonth()===monatNr) mon+=x.umsatz;
+
+    stand[x.firma]+=x.umsatz;
+
+    if(x.firma.toLowerCase().includes(filter)){
+
+      liste.innerHTML+=`<div class="item"><b>${x.firma}</b><div class="small">${ds}</div>Umsatz: ${euro(x.umsatz)}<br><span class="green">Gewinn: ${euro(x.profit)}</span><br><button onclick="loeschen(${i})">Löschen</button></div>`;
+
+    }
+
+  });
+
+  document.getElementById('umsatz').innerText=euro(gesamt);
+
+  document.getElementById('gewinn').innerText=euro(gew);
+
+  document.getElementById('heute').innerText=euro(heut);
+
+  document.getElementById('monat').innerText=euro(mon);
+
+  document.getElementById('wa').innerText=euro(stand['Zurndorf WA']);
+
+  document.getElementById('we').innerText=euro(stand['Zurndorf WE']);
+
+  document.getElementById('bruck').innerText=euro(stand['Bruck']);
+
+  document.getElementById('wien').innerText=euro(stand['Wien']);
+
+}
 
 anzeigen();
 
