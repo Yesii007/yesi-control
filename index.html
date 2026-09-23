@@ -6,109 +6,123 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>YESI Control</title>
+<title>YESI Control V3</title>
 
 <style>
 
 body{
 
-    margin:0;
+  margin:0;
 
-    background:#111;
+  background:#0b0b0b;
 
-    color:white;
+  color:#fff;
 
-    font-family:-apple-system,Arial;
+  font-family:-apple-system,Arial;
 
 }
 
-.header{
+header{
 
-    background:#c89b2b;
+  background:#c89b2b;
 
-    color:#111;
+  color:#111;
 
-    padding:18px;
+  font-size:24px;
 
-    font-size:32px;
+  font-weight:700;
 
-    font-weight:bold;
+  padding:18px;
 
 }
 
 .wrap{padding:16px;}
 
-.row{display:flex;gap:10px;}
+.grid{
+
+  display:grid;
+
+  grid-template-columns:1fr 1fr;
+
+  gap:12px;
+
+}
 
 .card{
 
-    background:#1c1c1c;
+  background:#1b1b1b;
 
-    border-radius:18px;
+  border-radius:18px;
 
-    padding:16px;
-
-    margin-bottom:14px;
-
-    flex:1;
+  padding:16px;
 
 }
 
-.small{color:#aaa;font-size:12px;}
+.label{color:#aaa;font-size:13px;}
 
-.big{font-size:30px;font-weight:bold;}
+.big{font-size:22px;font-weight:bold;margin-top:6px;}
 
-input,select{
+h2{margin-top:0}
 
-    width:100%;
+select,input{
 
-    padding:12px;
+  width:100%;
 
-    border:none;
+  padding:12px;
 
-    border-radius:10px;
+  margin-top:6px;
 
-    background:#2b2b2b;
+  margin-bottom:12px;
 
-    color:white;
+  background:#2a2a2a;
 
-    margin-top:5px;
+  color:#fff;
 
-    box-sizing:border-box;
+  border:none;
+
+  border-radius:12px;
+
+  box-sizing:border-box;
 
 }
+
+.row{display:flex;gap:10px;}
 
 button{
 
-    width:100%;
+  width:100%;
 
-    padding:14px;
+  padding:14px;
 
-    border:none;
+  background:#c89b2b;
 
-    border-radius:12px;
+  color:#111;
 
-    background:#c89b2b;
+  border:none;
 
-    color:#111;
+  border-radius:14px;
 
-    font-size:18px;
+  font-size:18px;
 
-    font-weight:bold;
-
-    margin-top:12px;
+  font-weight:bold;
 
 }
 
 .item{
 
-    border-bottom:1px solid #333;
+  background:#262626;
 
-    padding:10px 0;
+  border-radius:12px;
+
+  padding:10px;
+
+  margin-top:8px;
 
 }
+
+small{color:#bbb}
 
 </style>
 
@@ -116,49 +130,47 @@ button{
 
 <body>
 
-<div class="header">YESI Control</div>
+<header>YESI Control</header>
 
 <div class="wrap">
 
-<div class="row">
+<div class="grid">
 
 <div class="card">
 
-<div class="small">Gesamtumsatz</div>
+<div class="label">Gesamtumsatz</div>
 
-<div id="umsatz" class="big">€0,00</div>
-
-</div>
-
-<div class="card">
-
-<div class="small">Gesamtgewinn</div>
-
-<div id="gewinn" class="big">€0,00</div>
-
-</div>
-
-</div>
-
-<div class="row">
-
-<div class="card">
-
-<div class="small">Heute</div>
-
-<div id="heute" class="big">€0,00</div>
+<div class="big" id="umsatz">€ 0,00</div>
 
 </div>
 
 <div class="card">
 
-<div class="small">Monat</div>
+<div class="label">Gesamtgewinn</div>
 
-<div id="monat" class="big">€0,00</div>
+<div class="big" id="gewinn">€ 0,00</div>
+
+</div>
+
+<div class="card">
+
+<div class="label">Heute</div>
+
+<div class="big" id="heute">€ 0,00</div>
+
+</div>
+
+<div class="card">
+
+<div class="label">Monat</div>
+
+<div class="big" id="monat">€ 0,00</div>
 
 </div>
 
 </div>
+
+<br>
 
 <div class="card">
 
@@ -178,39 +190,41 @@ button{
 
 <div class="row">
 
-<div style="flex:1">
+<div>
 
-<div class="small">Münzen</div>
+<div class="label">Münzen</div>
 
-<input id="m" type="number" placeholder="0">
-
-</div>
-
-<div style="flex:1">
-
-<div class="small">Scheine</div>
-
-<input id="s" type="number" placeholder="0">
+<input id="muenzen" type="number" value="0">
 
 </div>
 
-</div>
+<div>
 
-<div class="small">Wareneinsatz</div>
+<div class="label">Scheine</div>
 
-<input id="w" type="number" placeholder="0">
-
-<button onclick="save()">Speichern</button>
+<input id="scheine" type="number" value="0">
 
 </div>
+
+</div>
+
+<div class="label">Wareneinsatz</div>
+
+<input id="einsatz" type="number" value="0">
+
+<button onclick="speichern()">Speichern</button>
+
+</div>
+
+<br>
 
 <div class="card">
 
 <h2>Verlauf</h2>
 
-<input id="search" placeholder="Standort suchen..." oninput="draw()">
+<input id="suche" placeholder="Standort suchen..." oninput="anzeigen()">
 
-<div id="list"></div>
+<div id="liste"></div>
 
 </div>
 
@@ -218,127 +232,113 @@ button{
 
 <script>
 
-const KEY="yesi_control_v2";
-
-let data=JSON.parse(localStorage.getItem(KEY)||"[]");
+let daten = JSON.parse(localStorage.getItem("yesi_v3") || "[]");
 
 function euro(v){
 
-return new Intl.NumberFormat("de-AT",{
+ return new Intl.NumberFormat("de-AT",{
 
-style:"currency",
+ style:"currency",
 
-currency:"EUR"
+ currency:"EUR"
 
-}).format(v);
-
-}
-
-function today(){
-
-return new Date().toLocaleDateString("de-AT");
+ }).format(v);
 
 }
 
-function monthKey(d){
+function speichern(){
 
-return d.split(".").slice(1).join(".");
+ const eintrag={
 
-}
+ firma:firma.value,
 
-function save(){
+ muenzen:Number(muenzen.value),
 
-const e={
+ scheine:Number(scheine.value),
 
-firma:firma.value,
+ einsatz:Number(einsatz.value),
 
-m:+m.value||0,
+ datum:new Date().toISOString()
 
-s:+s.value||0,
+ };
 
-w:+w.value||0,
+ daten.unshift(eintrag);
 
-date:today(),
+ localStorage.setItem("yesi_v3",JSON.stringify(daten));
 
-time:new Date().toLocaleTimeString("de-AT",{hour:"2-digit",minute:"2-digit"})
+ muenzen.value=0;
 
-};
+ scheine.value=0;
 
-data.unshift(e);
+ einsatz.value=0;
 
-localStorage.setItem(KEY,JSON.stringify(data));
-
-m.value="";
-
-s.value="";
-
-w.value="";
-
-draw();
+ anzeigen();
 
 }
 
-function draw(){
+function anzeigen(){
 
-let um=0;
+ let umsatz=0;
 
-let ge=0;
+ let gewinn=0;
 
-let ht=0;
+ let heute=0;
 
-let mo=0;
+ let monat=0;
 
-const t=today();
+ const heuteTxt=new Date().toDateString();
 
-const mk=monthKey(t);
+ const monatTxt=new Date().toISOString().slice(0,7);
 
-const q=search.value.toLowerCase();
+ liste.innerHTML="";
 
-list.innerHTML="";
+ daten.forEach(x=>{
 
-data.forEach(e=>{
+ const einnahme=x.muenzen+x.scheine;
 
-const ein=e.m+e.s;
+ const profit=einnahme-x.einsatz;
 
-const gew=ein-e.w;
+ umsatz+=einnahme;
 
-um+=ein;
+ gewinn+=profit;
 
-ge+=gew;
+ const d=new Date(x.datum);
 
-if(e.date===t) ht+=ein;
+ if(d.toDateString()==heuteTxt) heute+=einnahme;
 
-if(monthKey(e.date)===mk) mo+=ein;
+ if(x.datum.slice(0,7)==monatTxt) monat+=einnahme;
 
-if(q && !e.firma.toLowerCase().includes(q)) return;
+ if(x.firma.toLowerCase().includes(suche.value.toLowerCase())){
 
-list.innerHTML+=`
+ liste.innerHTML+=`
 
-<div class="item">
+ <div class="item">
 
-<b>${e.firma}</b><br>
+ <b>${x.firma}</b><br>
 
-<span class="small">${e.date} · ${e.time}</span><br>
+ <small>${d.toLocaleDateString("de-AT")}</small><br><br>
 
-Einwurf: ${euro(ein)}<br>
+ Umsatz: ${euro(einnahme)}<br>
 
-Gewinn: ${euro(gew)}
+ Gewinn: ${euro(profit)}
 
-</div>`;
+ </div>`;
 
-});
+ }
 
-umsatz.innerText=euro(um);
+ });
 
-gewinn.innerText=euro(ge);
+ document.getElementById("umsatz").innerText=euro(umsatz);
 
-heute.innerText=euro(ht);
+ document.getElementById("gewinn").innerText=euro(gewinn);
 
-monat.innerText=euro(mo);
+ document.getElementById("heute").innerText=euro(heute);
+
+ document.getElementById("monat").innerText=euro(monat);
 
 }
 
-draw();
+anzeigen();
 
 </script>
 
