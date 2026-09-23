@@ -1,20 +1,170 @@
 <!DOCTYPE html>
-<html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>
+
+<html lang="de">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>YESI Control</title>
-<link rel='manifest' href='manifest.json'>
+
 <style>
-body{font-family:-apple-system,Arial;background:#111;color:#fff;margin:0}
-.h{background:#c89b2b;padding:16px;color:#111;font-weight:700;font-size:24px}
-.wrap{padding:16px}.card{background:#1c1c1c;border-radius:16px;padding:14px;margin-bottom:12px}
-input,select{width:100%;padding:10px;border-radius:10px;border:none;margin-top:6px;background:#2a2a2a;color:#fff}
-button{width:100%;padding:12px;border:none;border-radius:12px;background:#c89b2b;color:#111;font-weight:700;margin-top:10px}
-.row{display:flex;gap:10px}.stat{flex:1;background:#1c1c1c;border-radius:16px;padding:12px}
-.small{color:#aaa;font-size:12px}.big{font-size:28px;font-weight:700}.e{padding:8px 0;border-bottom:1px solid #333}
-</style></head>
-<body><div class='h'>YESI Control</div><div class='wrap'>
-<div class='row'><div class='stat'><div class='small'>Umsatz</div><div id='r' class='big'>€0</div></div><div class='stat'><div class='small'>Gewinn</div><div id='p' class='big'>€0</div></div></div>
-<div class='card'><h3>Neue Entleerung</h3>
-<select id='m'>
+
+body{
+
+    margin:0;
+
+    background:#111;
+
+    color:white;
+
+    font-family:-apple-system,Arial;
+
+}
+
+.header{
+
+    background:#c89b2b;
+
+    color:#111;
+
+    padding:18px;
+
+    font-size:32px;
+
+    font-weight:bold;
+
+}
+
+.wrap{padding:16px;}
+
+.row{display:flex;gap:10px;}
+
+.card{
+
+    background:#1c1c1c;
+
+    border-radius:18px;
+
+    padding:16px;
+
+    margin-bottom:14px;
+
+    flex:1;
+
+}
+
+.small{color:#aaa;font-size:12px;}
+
+.big{font-size:30px;font-weight:bold;}
+
+input,select{
+
+    width:100%;
+
+    padding:12px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#2b2b2b;
+
+    color:white;
+
+    margin-top:5px;
+
+    box-sizing:border-box;
+
+}
+
+button{
+
+    width:100%;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#c89b2b;
+
+    color:#111;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    margin-top:12px;
+
+}
+
+.item{
+
+    border-bottom:1px solid #333;
+
+    padding:10px 0;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">YESI Control</div>
+
+<div class="wrap">
+
+<div class="row">
+
+<div class="card">
+
+<div class="small">Gesamtumsatz</div>
+
+<div id="umsatz" class="big">€0,00</div>
+
+</div>
+
+<div class="card">
+
+<div class="small">Gesamtgewinn</div>
+
+<div id="gewinn" class="big">€0,00</div>
+
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="card">
+
+<div class="small">Heute</div>
+
+<div id="heute" class="big">€0,00</div>
+
+</div>
+
+<div class="card">
+
+<div class="small">Monat</div>
+
+<div id="monat" class="big">€0,00</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>Neue Entleerung</h2>
+
+<select id="firma">
 
 <option>Zurndorf WA</option>
 
@@ -25,14 +175,173 @@ button{width:100%;padding:12px;border:none;border-radius:12px;background:#c89b2b
 <option>Wien</option>
 
 </select>
-<div class='row'><div><div class='small'>Münzen</div><input id='c' type='number'></div><div><div class='small'>Scheine</div><input id='n' type='number'></div></div>
-<div class='small'>Wareneinsatz</div><input id='w' type='number'><button onclick='add()'>Speichern</button></div>
-<div class='card'><h3>Verlauf</h3><div id='list'></div></div></div>
+
+<div class="row">
+
+<div style="flex:1">
+
+<div class="small">Münzen</div>
+
+<input id="m" type="number" placeholder="0">
+
+</div>
+
+<div style="flex:1">
+
+<div class="small">Scheine</div>
+
+<input id="s" type="number" placeholder="0">
+
+</div>
+
+</div>
+
+<div class="small">Wareneinsatz</div>
+
+<input id="w" type="number" placeholder="0">
+
+<button onclick="save()">Speichern</button>
+
+</div>
+
+<div class="card">
+
+<h2>Verlauf</h2>
+
+<input id="search" placeholder="Standort suchen..." oninput="draw()">
+
+<div id="list"></div>
+
+</div>
+
+</div>
+
 <script>
-let d=JSON.parse(localStorage.yesi||"[]");
-function euro(v){return new Intl.NumberFormat('de-AT',{style:'currency',currency:'EUR'}).format(v)}
-function draw(){let r=0,p=0;list.innerHTML="";d.forEach(x=>{let rev=x.c+x.n;r+=rev;p+=rev-x.w;list.innerHTML+=`<div class=e><b>${x.m}</b> ${euro(rev)}<br><span class=small>Gewinn ${euro(rev-x.w)}</span></div>`});R.textContent=euro(r);P.textContent=euro(p)}
-const R=document.getElementById('r'),P=document.getElementById('p'),list=document.getElementById('list');
-function add(){d.unshift({m:m.value,c:+c.value||0,n:+n.value||0,w:+w.value||0});localStorage.yesi=JSON.stringify(d);c.value=n.value=w.value="";draw()}
+
+const KEY="yesi_control_v2";
+
+let data=JSON.parse(localStorage.getItem(KEY)||"[]");
+
+function euro(v){
+
+return new Intl.NumberFormat("de-AT",{
+
+style:"currency",
+
+currency:"EUR"
+
+}).format(v);
+
+}
+
+function today(){
+
+return new Date().toLocaleDateString("de-AT");
+
+}
+
+function monthKey(d){
+
+return d.split(".").slice(1).join(".");
+
+}
+
+function save(){
+
+const e={
+
+firma:firma.value,
+
+m:+m.value||0,
+
+s:+s.value||0,
+
+w:+w.value||0,
+
+date:today(),
+
+time:new Date().toLocaleTimeString("de-AT",{hour:"2-digit",minute:"2-digit"})
+
+};
+
+data.unshift(e);
+
+localStorage.setItem(KEY,JSON.stringify(data));
+
+m.value="";
+
+s.value="";
+
+w.value="";
+
 draw();
-</script></body></html>
+
+}
+
+function draw(){
+
+let um=0;
+
+let ge=0;
+
+let ht=0;
+
+let mo=0;
+
+const t=today();
+
+const mk=monthKey(t);
+
+const q=search.value.toLowerCase();
+
+list.innerHTML="";
+
+data.forEach(e=>{
+
+const ein=e.m+e.s;
+
+const gew=ein-e.w;
+
+um+=ein;
+
+ge+=gew;
+
+if(e.date===t) ht+=ein;
+
+if(monthKey(e.date)===mk) mo+=ein;
+
+if(q && !e.firma.toLowerCase().includes(q)) return;
+
+list.innerHTML+=`
+
+<div class="item">
+
+<b>${e.firma}</b><br>
+
+<span class="small">${e.date} · ${e.time}</span><br>
+
+Einwurf: ${euro(ein)}<br>
+
+Gewinn: ${euro(gew)}
+
+</div>`;
+
+});
+
+umsatz.innerText=euro(um);
+
+gewinn.innerText=euro(ge);
+
+heute.innerText=euro(ht);
+
+monat.innerText=euro(mo);
+
+}
+
+draw();
+
+</script>
+
+</body>
+
+</html>
