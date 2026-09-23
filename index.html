@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>
+<title>YESI Control</title>
+<link rel='manifest' href='manifest.json'>
+<style>
+body{font-family:-apple-system,Arial;background:#111;color:#fff;margin:0}
+.h{background:#c89b2b;padding:16px;color:#111;font-weight:700;font-size:24px}
+.wrap{padding:16px}.card{background:#1c1c1c;border-radius:16px;padding:14px;margin-bottom:12px}
+input,select{width:100%;padding:10px;border-radius:10px;border:none;margin-top:6px;background:#2a2a2a;color:#fff}
+button{width:100%;padding:12px;border:none;border-radius:12px;background:#c89b2b;color:#111;font-weight:700;margin-top:10px}
+.row{display:flex;gap:10px}.stat{flex:1;background:#1c1c1c;border-radius:16px;padding:12px}
+.small{color:#aaa;font-size:12px}.big{font-size:28px;font-weight:700}.e{padding:8px 0;border-bottom:1px solid #333}
+</style></head>
+<body><div class='h'>YESI Control</div><div class='wrap'>
+<div class='row'><div class='stat'><div class='small'>Umsatz</div><div id='r' class='big'>€0</div></div><div class='stat'><div class='small'>Gewinn</div><div id='p' class='big'>€0</div></div></div>
+<div class='card'><h3>Neue Entleerung</h3>
+<select id='m'><option>Firma 1</option><option>Firma 2</option><option>Firma 3</option><option>Firma 4</option></select>
+<div class='row'><div><div class='small'>Münzen</div><input id='c' type='number'></div><div><div class='small'>Scheine</div><input id='n' type='number'></div></div>
+<div class='small'>Wareneinsatz</div><input id='w' type='number'><button onclick='add()'>Speichern</button></div>
+<div class='card'><h3>Verlauf</h3><div id='list'></div></div></div>
+<script>
+let d=JSON.parse(localStorage.yesi||"[]");
+function euro(v){return new Intl.NumberFormat('de-AT',{style:'currency',currency:'EUR'}).format(v)}
+function draw(){let r=0,p=0;list.innerHTML="";d.forEach(x=>{let rev=x.c+x.n;r+=rev;p+=rev-x.w;list.innerHTML+=`<div class=e><b>${x.m}</b> ${euro(rev)}<br><span class=small>Gewinn ${euro(rev-x.w)}</span></div>`});R.textContent=euro(r);P.textContent=euro(p)}
+const R=document.getElementById('r'),P=document.getElementById('p'),list=document.getElementById('list');
+function add(){d.unshift({m:m.value,c:+c.value||0,n:+n.value||0,w:+w.value||0});localStorage.yesi=JSON.stringify(d);c.value=n.value=w.value="";draw()}
+draw();
+</script></body></html>
