@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 
 <html lang="de">
@@ -8,317 +10,31 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>YESI Control</title>
+<title>YESI Control V2</title>
 
 <style>
 
-*{
+body{margin:0;background:#0f1115;color:#fff;font-family:-apple-system,BlinkMacSystemFont,sans-serif}
 
-    margin:0;
+header{background:#d4af37;color:#111;padding:18px;font-size:24px;font-weight:bold}
 
-    padding:0;
+.wrap{padding:16px;max-width:700px;margin:auto}
 
-    box-sizing:border-box;
+.card{background:#1a1d24;border-radius:14px;padding:14px;margin-bottom:14px}
 
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+h1,h2,h3,p{margin:6px 0}
 
-}
+input{width:100%;padding:12px;margin:6px 0;border:none;border-radius:10px;background:#2b303a;color:#fff}
 
-body{
+button{width:100%;padding:12px;border:none;border-radius:10px;background:#d4af37;color:#111;font-weight:bold;font-size:16px}
 
-    background:#000;
+.row{display:flex;gap:10px}
 
-    color:#fff;
+.row .box{flex:1;background:#2b303a;padding:10px;border-radius:10px;text-align:center}
 
-}
+.item{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #333}
 
-header{
-
-    background:#C9A227;
-
-    color:#000;
-
-    padding:22px;
-
-    font-size:34px;
-
-    font-weight:700;
-
-}
-
-.container{
-
-    padding:18px;
-
-    padding-bottom:90px;
-
-}
-
-.card{
-
-    background:#181818;
-
-    border-radius:22px;
-
-    padding:18px;
-
-    margin-bottom:15px;
-
-}
-
-.grid{
-
-    display:grid;
-
-    grid-template-columns:1fr 1fr;
-
-    gap:12px;
-
-}
-
-.title{
-
-    font-size:14px;
-
-    color:#A9A9A9;
-
-    margin-bottom:8px;
-
-}
-
-.value{
-
-    font-size:32px;
-
-    font-weight:700;
-
-}
-
-select,input{
-
-    width:100%;
-
-    background:#262626;
-
-    color:white;
-
-    border:none;
-
-    border-radius:14px;
-
-    padding:14px;
-
-    font-size:16px;
-
-    margin-top:6px;
-
-}
-
-.row{
-
-    display:grid;
-
-    grid-template-columns:1fr 1fr;
-
-    gap:10px;
-
-}
-
-button{
-
-    width:100%;
-
-    border:none;
-
-    background:#C9A227;
-
-    color:#000;
-
-    font-weight:700;
-
-    font-size:20px;
-
-    padding:16px;
-
-    border-radius:18px;
-
-    margin-top:15px;
-
-}
-
-.bottom{
-
-    position:fixed;
-
-    bottom:0;
-
-    left:0;
-
-    width:100%;
-
-    background:#111;
-
-    display:flex;
-
-    justify-content:space-around;
-
-    padding:12px 0;
-
-    border-top:1px solid #2A2A2A;
-
-}
-
-.navbtn{
-
-    color:#B5B5B5;
-
-    font-size:12px;
-
-    text-align:center;
-
-}
-
-.active{
-
-    color:#C9A227;
-
-}
-
-.page{
-
-    display:none;
-
-}
-
-.show{
-
-    display:block;
-
-}
-
-.product{
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    padding:12px 0;
-
-    border-bottom:1px solid #303030;
-
-}
-
-.qty{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:12px;
-
-}
-
-.circle{
-
-    width:34px;
-
-    height:34px;
-
-    border-radius:50%;
-
-    background:#C9A227;
-
-    color:#000;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    font-size:22px;
-
-    font-weight:bold;
-
-    cursor:pointer;
-
-}
-
-.gray{
-
-    background:#3A3A3A;
-
-    color:white;
-
-}
-
-.totalBox{
-
-    background:#242424;
-
-    border:1px solid #C9A227;
-
-    border-radius:16px;
-
-    padding:15px;
-
-    margin-top:15px;
-
-}
-
-.history{
-
-    background:#222;
-
-    border-radius:15px;
-
-    padding:12px;
-
-    margin-top:10px;
-
-}
-
-.history small{
-
-    color:#AAA;
-
-}
-
-.filter{
-
-    display:flex;
-
-    gap:8px;
-
-    margin:10px 0;
-
-}
-
-.filter button{
-
-    margin:0;
-
-    padding:10px;
-
-    font-size:13px;
-
-    border-radius:10px;
-
-    background:#262626;
-
-    color:white;
-
-}
-
-.filter .on{
-
-    background:#C9A227;
-
-    color:#000;
-
-}
+small{color:#aaa}
 
 </style>
 
@@ -326,253 +42,75 @@ button{
 
 <body>
 
-<header>
+<header>💰 YESI CONTROL V2 🔔</header>
 
-YESI Control
-
-</header>
-
-<div class="container">
-
-<!-- DASHBOARD -->
-
-<div id="dashboard" class="page show">
+<div class="wrap">
 
 <div class="card">
 
-<label>Standort</label>
+<h3>Gesamtübersicht</h3>
 
-<select id="locationSelect" onchange="changeLocation()">
+<div class="row">
 
-<option>Gesamt</option>
+<div class="box">
 
-<option>Zurndorf WA</option>
+<small>Einnahmen</small>
 
-<option>Wien</option>
-
-<option>Parndorf</option>
-
-<option>Neusiedl</option>
-
-</select>
+<h2 id="income">€0.00</h2>
 
 </div>
 
-<div class="grid">
+<div class="box">
 
-<div class="card">
+<small>Ausgaben</small>
 
-<div class="title">Gesamtumsatz</div>
+<h2 id="expense">€0.00</h2>
 
-<div class="value" id="kpiRevenue">€0,00</div>
+</div>
+
+</div>
+
+<h1 id="profit">Gewinn: €0.00</h1>
 
 </div>
 
 <div class="card">
 
-<div class="title">Gesamtgewinn</div>
+<h3>💰 Einnahme hinzufügen</h3>
 
-<div class="value" id="kpiProfit">€0,00</div>
+<input id="iname" placeholder="Automat / Artikel">
 
-</div>
+<input id="ivalue" type="number" step="0.01" placeholder="Betrag €">
 
-<div class="card">
-
-<div class="title">Ges. Wareneinschlichtung</div>
-
-<div class="value" id="kpiStock">€0,00</div>
+<button onclick="addIncome()">Einnahme speichern</button>
 
 </div>
 
 <div class="card">
 
-<div class="title">Monatsumsatz</div>
+<h3>🛒 Einkauf hinzufügen</h3>
 
-<div class="value" id="kpiMonth">€0,00</div>
+<input id="sname" placeholder="Lieferant">
 
-</div>
+<input id="svalue" type="number" step="0.01" placeholder="Betrag €">
 
-</div>
-
-<div class="card">
-
-<h2>Neue Entleerung</h2>
-
-<br>
-
-<label>Münzen</label>
-
-<input id="coins" type="number" placeholder="0">
-
-<label>Scheine</label>
-
-<input id="notes" type="number" placeholder="0">
-
-<button onclick="saveCashout()">
-
-Speichern
-
-</button>
+<button onclick="addExpense()">Einkauf speichern</button>
 
 </div>
 
 <div class="card">
 
-<h2>Verlauf</h2>
+<h3>📅 Dieser Monat</h3>
 
-<div id="historyList"></div>
-
-</div>
-
-</div>
-
-<!-- EINSCHLICHTEN -->
-
-<div id="stocking" class="page">
-
-<div class="card">
-
-<h2>Einschlichten</h2>
-
-<p id="stockLocation">Standort: Gesamt</p>
+<div id="month"></div>
 
 </div>
 
 <div class="card">
 
-<div id="productList"></div>
+<h3>📜 Letzte Buchungen</h3>
 
-<div class="totalBox">
-
-<div class="title">
-
-Gesamter Wareneinschlichtungswert
-
-</div>
-
-<div class="value" id="stockTotal">
-
-€0,00
-
-</div>
-
-</div>
-
-<button onclick="saveStocking()">
-
-Speichern
-
-</button>
-
-</div>
-
-</div>
-
-<!-- PRODUKTE -->
-
-<div id="products" class="page">
-
-<div class="card">
-
-<h2>Produkte verwalten</h2>
-
-<br>
-
-<div id="priceList"></div>
-
-</div>
-
-</div>
-
-<!-- AUSWERTUNG -->
-
-<div id="report" class="page">
-
-<div class="card">
-
-<h2>Auswertung</h2>
-
-<div class="filter">
-
-<button class="on">Heute</button>
-
-<button>Woche</button>
-
-<button>Monat</button>
-
-<button>Jahr</button>
-
-</div>
-
-<label>Von</label>
-
-<input type="date" id="from">
-
-<label>Bis</label>
-
-<input type="date" id="to">
-
-<button onclick="runReport()">
-
-Auswertung anzeigen
-
-</button>
-
-</div>
-
-<div class="card">
-
-<h3>Ergebnis</h3>
-
-<br>
-
-<div class="title">Umsatz</div>
-
-<div class="value" id="repRevenue">€0</div>
-
-<br>
-
-<div class="title">Wareneinschlichtung</div>
-
-<div class="value" id="repStock">€0</div>
-
-<br>
-
-<div class="title">Gewinn</div>
-
-<div class="value" id="repProfit">€0</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- NAV -->
-
-<div class="bottom">
-
-<div class="navbtn active" onclick="openPage('dashboard',this)">
-
-🏠<br>Home
-
-</div>
-
-<div class="navbtn" onclick="openPage('stocking',this)">
-
-📦<br>Einschlichten
-
-</div>
-
-<div class="navbtn" onclick="openPage('products',this)">
-
-🥤<br>Produkte
-
-</div>
-
-<div class="navbtn" onclick="openPage('report',this)">
-
-📊<br>Auswertung
+<div id="history"></div>
 
 </div>
 
@@ -580,530 +118,121 @@ Auswertung anzeigen
 
 <script>
 
-const state={
+let db = JSON.parse(localStorage.getItem("yesiV2") || '{"income":[],"expense":[]}');
 
-location:"Gesamt",
+function save(){
 
-products:[
+localStorage.setItem("yesiV2", JSON.stringify(db));
 
-{name:"Red Bull 250ml",price:0.89,qty:0},
-
-{name:"Coca Cola 0,5l",price:0.72,qty:0},
-
-{name:"Fanta 0,5l",price:0.65,qty:0},
-
-{name:"Sprite 0,5l",price:0.65,qty:0},
-
-{name:"Rauch Eistee",price:0.75,qty:0},
-
-{name:"KitKat",price:0.54,qty:0},
-
-{name:"Twix",price:0.55,qty:0},
-
-{name:"Mars",price:0.55,qty:0}
-
-],
-
-cashouts:[],
-
-stockings:[]
-
-};
-
-function euro(v){
-
-return "€ "+v.toFixed(2).replace(".",",");
+render();
 
 }
 
-</script>
-function openPage(page,el){
+function addIncome(){
 
-document.querySelectorAll(".page")
+const n=document.getElementById("iname").value;
 
-.forEach(p=>p.classList.remove("show"));
+const v=parseFloat(document.getElementById("ivalue").value);
 
-document.getElementById(page)
+if(!n || !v) return;
 
-.classList.add("show");
+db.income.unshift({name:n,value:v,date:new Date().toISOString()});
 
-document.querySelectorAll(".navbtn")
+document.getElementById("iname").value="";
 
-.forEach(b=>b.classList.remove("active"));
+document.getElementById("ivalue").value="";
 
-el.classList.add("active");
-
-if(page==="stocking") renderProducts();
-
-if(page==="products") renderPriceList();
+save();
 
 }
 
-function changeLocation(){
+function addExpense(){
 
-state.location=
+const n=document.getElementById("sname").value;
 
-document.getElementById("locationSelect").value;
+const v=parseFloat(document.getElementById("svalue").value);
 
-document.getElementById("stockLocation").innerText=
+if(!n || !v) return;
 
-"Standort: "+state.location;
+db.expense.unshift({name:n,value:v,date:new Date().toISOString()});
 
-updateDashboard();
+document.getElementById("sname").value="";
 
-}
+document.getElementById("svalue").value="";
 
-function renderProducts(){
-
-const list=document.getElementById("productList");
-
-list.innerHTML="";
-
-state.products.forEach((p,i)=>{
-
-list.innerHTML+=`
-
-<div class="product">
-
-<div>
-
-<b>${p.name}</b><br>
-
-<small>EK € ${p.price.toFixed(2)}</small>
-
-</div>
-
-<div class="qty">
-
-<div class="circle gray"
-
-onclick="minus(${i})">−</div>
-
-<div id="q${i}">${p.qty}</div>
-
-<div class="circle"
-
-onclick="plus(${i})">+</div>
-
-</div>
-
-</div>
-
-`;
-
-});
-
-updateStockTotal();
+save();
 
 }
 
-function plus(i){
+function euro(x){
 
-state.products[i].qty++;
-
-document.getElementById("q"+i).innerText=
-
-state.products[i].qty;
-
-updateStockTotal();
+return "€"+x.toFixed(2);
 
 }
 
-function minus(i){
+function render(){
 
-if(state.products[i].qty===0)return;
+let income=db.income.reduce((a,b)=>a+b.value,0);
 
-state.products[i].qty--;
+let expense=db.expense.reduce((a,b)=>a+b.value,0);
 
-document.getElementById("q"+i).innerText=
+document.getElementById("income").innerHTML=euro(income);
 
-state.products[i].qty;
+document.getElementById("expense").innerHTML=euro(expense);
 
-updateStockTotal();
+document.getElementById("profit").innerHTML="Gewinn: "+euro(income-expense);
 
-}
+const m=new Date().getMonth();
 
-function updateStockTotal(){
+const y=new Date().getFullYear();
 
-let total=0;
+let mi=db.income.filter(x=>{
 
-state.products.forEach(p=>{
+let d=new Date(x.date);
 
-total+=p.qty*p.price;
+return d.getMonth()==m && d.getFullYear()==y;
 
-});
+}).reduce((a,b)=>a+b.value,0);
 
-document.getElementById("stockTotal")
+let me=db.expense.filter(x=>{
 
-.innerText=euro(total);
+let d=new Date(x.date);
 
-}
+return d.getMonth()==m && d.getFullYear()==y;
 
-function saveStocking(){
+}).reduce((a,b)=>a+b.value,0);
 
-let items=[];
+document.getElementById("month").innerHTML=
 
-let total=0;
+'<div class="item"><span>Einnahmen</span><b>'+euro(mi)+'</b></div>'+
 
-state.products.forEach(p=>{
+'<div class="item"><span>Ausgaben</span><b>'+euro(me)+'</b></div>'+
 
-if(p.qty>0){
-
-items.push({
-
-name:p.name,
-
-qty:p.qty,
-
-price:p.price
-
-});
-
-total+=p.qty*p.price;
-
-}
-
-});
-
-if(items.length===0){
-
-alert("Keine Produkte gewählt");
-
-return;
-
-}
-
-state.stockings.push({
-
-location:state.location,
-
-items,
-
-total,
-
-date:new Date().toISOString()
-
-});
-
-state.products.forEach(p=>p.qty=0);
-
-renderProducts();
-
-updateDashboard();
-
-alert("Wareneinschlichtung gespeichert");
-
-}
-
-function saveCashout(){
-
-const coins=
-
-Number(document.getElementById("coins").value);
-
-const notes=
-
-Number(document.getElementById("notes").value);
-
-const total=coins+notes;
-
-state.cashouts.push({
-
-location:state.location,
-
-coins,
-
-notes,
-
-total,
-
-date:new Date().toISOString()
-
-});
-
-document.getElementById("coins").value="";
-
-document.getElementById("notes").value="";
-
-updateDashboard();
-
-alert("Entleerung gespeichert");
-
-}
-
-function renderPriceList(){
-
-const list=document.getElementById("priceList");
-
-list.innerHTML="";
-
-state.products.forEach((p,i)=>{
-
-list.innerHTML+=`
-
-<div class="product">
-
-<div>
-
-<b>${p.name}</b>
-
-</div>
-
-<div style="display:flex;align-items:center;gap:8px">
-
-<input
-
-style="width:80px"
-
-type="number"
-
-step="0.01"
-
-value="${p.price}"
-
-onchange="changePrice(${i},this.value)"
-
->
-
-</div>
-
-</div>
-
-`;
-
-});
-
-}
-
-function changePrice(i,v){
-
-state.products[i].price=
-
-Number(v);
-
-}
-
-function updateDashboard(){
-
-let cash=
-
-state.cashouts.filter(x=>{
-
-return state.location==="Gesamt"
-
-||x.location===state.location;
-
-});
-
-let stock=
-
-state.stockings.filter(x=>{
-
-return state.location==="Gesamt"
-
-||x.location===state.location;
-
-});
-
-const revenue=
-
-cash.reduce((a,b)=>a+b.total,0);
-
-const stockValue=
-
-stock.reduce((a,b)=>a+b.total,0);
-
-const profit=
-
-revenue-stockValue;
-
-const month=
-
-new Date().getMonth();
-
-const monthRevenue=
-
-cash.filter(x=>{
-
-return new Date(x.date).getMonth()===month;
-
-})
-
-.reduce((a,b)=>a+b.total,0);
-
-document.getElementById("kpiRevenue")
-
-.innerText=euro(revenue);
-
-document.getElementById("kpiProfit")
-
-.innerText=euro(profit);
-
-document.getElementById("kpiStock")
-
-.innerText=euro(stockValue);
-
-document.getElementById("kpiMonth")
-
-.innerText=euro(monthRevenue);
-
-renderHistory();
-
-}
-
-function renderHistory(){
-
-const div=
-
-document.getElementById("historyList");
-
-div.innerHTML="";
+'<div class="item"><span>Gewinn</span><b>'+euro(mi-me)+'</b></div>';
 
 let all=[];
 
-state.cashouts.forEach(x=>{
+db.income.forEach(x=>all.push({icon:"💰",name:x.name,val:x.value,date:x.date}));
 
-all.push({
-
-type:"Entleerung",
-
-value:x.total,
-
-location:x.location,
-
-date:x.date
-
-});
-
-});
-
-state.stockings.forEach(x=>{
-
-all.push({
-
-type:"Einschlichtung",
-
-value:x.total,
-
-location:x.location,
-
-date:x.date
-
-});
-
-});
-
-all=all.filter(x=>{
-
-return state.location==="Gesamt"
-
-||x.location===state.location;
-
-});
+db.expense.forEach(x=>all.push({icon:"🛒",name:x.name,val:-x.value,date:x.date}));
 
 all.sort((a,b)=>new Date(b.date)-new Date(a.date));
 
-if(all.length===0){
+document.getElementById("history").innerHTML=
 
-div.innerHTML="<small>Noch keine Einträge</small>";
+all.map(x=>
 
-return;
+'<div class="item"><div><b>'+x.icon+' '+x.name+
 
-}
+'</b><br><small>'+new Date(x.date).toLocaleDateString("de-AT")+
 
-all.forEach(x=>{
+'</small></div><b>'+(x.val>0?"+":"-")+euro(Math.abs(x.val))+'</b></div>'
 
-div.innerHTML+=`
-
-<div class="history">
-
-<b>${x.type}</b><br>
-
-<small>${x.location}</small><br>
-
-<h3>${euro(x.value)}</h3>
-
-<small>${new Date(x.date).toLocaleString("de-DE")}</small>
-
-</div>
-
-`;
-
-});
+).join("") || "Keine Buchungen";
 
 }
 
-function runReport(){
-
-const from=
-
-new Date(document.getElementById("from").value);
-
-const to=
-
-new Date(document.getElementById("to").value);
-
-let cash=
-
-state.cashouts.filter(x=>{
-
-const d=new Date(x.date);
-
-return d>=from&&d<=to;
-
-});
-
-let stock=
-
-state.stockings.filter(x=>{
-
-const d=new Date(x.date);
-
-return d>=from&&d<=to;
-
-});
-
-if(state.location!=="Gesamt"){
-
-cash=cash.filter(x=>x.location===state.location);
-
-stock=stock.filter(x=>x.location===state.location);
-
-}
-
-const revenue=
-
-cash.reduce((a,b)=>a+b.total,0);
-
-const stockValue=
-
-stock.reduce((a,b)=>a+b.total,0);
-
-const profit=
-
-revenue-stockValue;
-
-document.getElementById("repRevenue")
-
-.innerText=euro(revenue);
-
-document.getElementById("repStock")
-
-.innerText=euro(stockValue);
-
-document.getElementById("repProfit")
-
-.innerText=euro(profit);
-
-}
-
-changeLocation();
-
-renderProducts();
-
-renderPriceList();
-
-updateDashboard();
+render();
 
 </script>
 
