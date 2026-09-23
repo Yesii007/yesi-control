@@ -8,35 +8,127 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>YESI Control V4</title>
+<title>YESI Control V4.1</title>
 
 <style>
 
-body{margin:0;background:#0b0b0b;color:#fff;font-family:-apple-system,Arial}
+body{
 
-.header{background:#c89b2b;color:#111;padding:20px;font-size:22px;font-weight:700}
+margin:0;
 
-.wrap{padding:16px}
+font-family:-apple-system,Arial;
 
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+background:#0b0b0b;
 
-.card{background:#1b1b1b;border-radius:18px;padding:16px;margin-bottom:14px}
+color:white;
 
-.label{color:#aaa;font-size:13px;margin-bottom:4px}
+}
 
-.value{font-size:32px;font-weight:700}
+.header{
 
-.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+background:#C8A227;
 
-input,select{width:100%;box-sizing:border-box;background:#2a2a2a;color:#fff;border:none;border-radius:10px;padding:12px;font-size:16px}
+color:#111;
 
-button{width:100%;background:#c89b2b;color:#111;border:none;border-radius:12px;padding:14px;font-size:18px;font-weight:700;margin-top:14px}
+padding:20px;
 
-.item{border-top:1px solid #333;padding:10px 0}
+font-size:24px;
 
-.green{color:#69e36f;font-weight:700}
+font-weight:bold;
 
-.small{color:#999;font-size:12px}
+}
+
+.wrap{padding:16px;}
+
+.grid{
+
+display:grid;
+
+grid-template-columns:1fr 1fr;
+
+gap:12px;
+
+}
+
+.card{
+
+background:#1B1B1B;
+
+border-radius:18px;
+
+padding:16px;
+
+}
+
+.label{
+
+font-size:12px;
+
+color:#999;
+
+}
+
+.value{
+
+font-size:28px;
+
+font-weight:bold;
+
+margin-top:6px;
+
+}
+
+input,select{
+
+width:100%;
+
+padding:12px;
+
+border:none;
+
+border-radius:12px;
+
+background:#2A2A2A;
+
+color:white;
+
+margin-top:6px;
+
+box-sizing:border-box;
+
+}
+
+button{
+
+width:100%;
+
+padding:14px;
+
+border:none;
+
+border-radius:12px;
+
+background:#C8A227;
+
+font-size:18px;
+
+font-weight:bold;
+
+margin-top:14px;
+
+}
+
+.item{
+
+border-top:1px solid #333;
+
+padding:10px 0;
+
+}
+
+.green{color:#5BE26B;font-weight:bold;}
+
+small{color:#999;}
 
 </style>
 
@@ -48,203 +140,279 @@ button{width:100%;background:#c89b2b;color:#111;border:none;border-radius:12px;p
 
 <div class="wrap">
 
-  <div class="grid">
+<div class="grid">
 
-    <div class="card"><div class="label">Gesamtumsatz</div><div class="value" id="umsatz">€ 0,00</div></div>
+<div class="card">
 
-    <div class="card"><div class="label">Gesamtgewinn</div><div class="value" id="gewinn">€ 0,00</div></div>
+<div class="label">Gesamtumsatz</div>
 
-    <div class="card"><div class="label">Heute</div><div class="value" id="heute">€ 0,00</div></div>
+<div id="umsatz" class="value">€ 0,00</div>
 
-    <div class="card"><div class="label">Monat</div><div class="value" id="monat">€ 0,00</div></div>
+</div>
 
-  </div>
+<div class="card">
 
-  <div class="card">
+<div class="label">Gesamtgewinn</div>
 
-    <h2>Neue Entleerung</h2>
+<div id="gewinn" class="value">€ 0,00</div>
 
-    <div class="label">Standort</div>
+</div>
 
-    <select id="firma">
+<div class="card">
 
-      <option>Zurndorf WA</option>
+<div class="label">Gesamtausgaben</div>
 
-      <option>Zurndorf WE</option>
+<div id="ausgaben" class="value">€ 0,00</div>
 
-      <option>Bruck</option>
+</div>
 
-      <option>Wien</option>
+<div class="card">
 
-    </select>
+<div class="label">Monatsumsatz</div>
 
-    <div class="row" style="margin-top:12px">
+<div id="monat" class="value">€ 0,00</div>
 
-      <div>
+</div>
 
-        <div class="label">Münzen</div>
+</div>
 
-        <input id="muenzen" type="number" value="0">
+<br>
 
-      </div>
+<div class="card">
 
-      <div>
+<h2>Neue Entleerung</h2>
 
-        <div class="label">Scheine</div>
+<div class="label">Standort</div>
 
-        <input id="scheine" type="number" value="0">
+<select id="firma">
 
-      </div>
+<option>Zurndorf WA</option>
 
-    </div>
+<option>Zurndorf WE</option>
 
-    <div class="label" style="margin-top:12px">Wareneinsatz</div>
+<option>Bruck</option>
 
-    <input id="einsatz" type="number" value="0">
+<option>Wien</option>
 
-    <button onclick="speichern()">Speichern</button>
+</select>
 
-  </div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px">
 
-  <div class="card">
+<div>
 
-    <h2>Verlauf</h2>
+<div class="label">Münzen</div>
 
-    <input id="suche" placeholder="Standort suchen..." oninput="anzeigen()">
+<input id="muenzen" type="number" value="0">
 
-    <div id="liste"></div>
+</div>
 
-  </div>
+<div>
 
-  <div class="card">
+<div class="label">Scheine</div>
 
-    <h2>Standort Auswertung</h2>
+<input id="scheine" type="number" value="0">
 
-    <div class="item"><b>Zurndorf WA</b><div id="wa">€ 0,00</div></div>
+</div>
 
-    <div class="item"><b>Zurndorf WE</b><div id="we">€ 0,00</div></div>
+</div>
 
-    <div class="item"><b>Bruck</b><div id="bruck">€ 0,00</div></div>
+<div class="label" style="margin-top:12px">Einkauf / Wareneinsatz</div>
 
-    <div class="item"><b>Wien</b><div id="wien">€ 0,00</div></div>
+<input id="einsatz" type="number" value="0">
 
-  </div>
+<button onclick="speichern()">Speichern</button>
+
+</div>
+
+<br>
+
+<div class="card">
+
+<h2>Verlauf</h2>
+
+<input id="suche" placeholder="Standort suchen..." oninput="anzeigen()">
+
+<div id="liste"></div>
+
+</div>
+
+<br>
+
+<div class="card">
+
+<h2>Standortumsatz</h2>
+
+<div class="item"><b>Zurndorf WA</b><div id="wa">€ 0,00</div></div>
+
+<div class="item"><b>Zurndorf WE</b><div id="we">€ 0,00</div></div>
+
+<div class="item"><b>Bruck</b><div id="bruck">€ 0,00</div></div>
+
+<div class="item"><b>Wien</b><div id="wien">€ 0,00</div></div>
+
+</div>
 
 </div>
 
 <script>
 
-let daten = JSON.parse(localStorage.getItem('yesi') || '[]');
+let daten = JSON.parse(localStorage.getItem("yesi") || "[]");
 
 function euro(v){
 
-  return new Intl.NumberFormat('de-AT',{
+return new Intl.NumberFormat("de-AT",{
 
-    style:'currency',currency:'EUR'
+style:"currency",
 
-  }).format(v);
+currency:"EUR"
+
+}).format(v);
 
 }
 
 function speichern(){
 
-  const firma=document.getElementById('firma').value;
+const firma=document.getElementById("firma").value;
 
-  const muenzen=Number(document.getElementById('muenzen').value)||0;
+const muenzen=Number(document.getElementById("muenzen").value)||0;
 
-  const scheine=Number(document.getElementById('scheine').value)||0;
+const scheine=Number(document.getElementById("scheine").value)||0;
 
-  const einsatz=Number(document.getElementById('einsatz').value)||0;
+const einsatz=Number(document.getElementById("einsatz").value)||0;
 
-  const umsatz=muenzen+scheine;
+const umsatz=muenzen+scheine;
 
-  const profit=umsatz-einsatz;
+const profit=umsatz-einsatz;
 
-  daten.unshift({
+daten.unshift({
 
-    firma,muenzen,scheine,einsatz,umsatz,profit,
+firma,
 
-    datum:new Date().toISOString()
+muenzen,
 
-  });
+scheine,
 
-  localStorage.setItem('yesi',JSON.stringify(daten));
+einsatz,
 
-  document.getElementById('muenzen').value=0;
+umsatz,
 
-  document.getElementById('scheine').value=0;
+profit,
 
-  document.getElementById('einsatz').value=0;
+datum:new Date().toISOString()
 
-  anzeigen();
+});
+
+localStorage.setItem("yesi",JSON.stringify(daten));
+
+document.getElementById("muenzen").value=0;
+
+document.getElementById("scheine").value=0;
+
+document.getElementById("einsatz").value=0;
+
+anzeigen();
 
 }
 
 function loeschen(i){
 
-  daten.splice(i,1);
+daten.splice(i,1);
 
-  localStorage.setItem('yesi',JSON.stringify(daten));
+localStorage.setItem("yesi",JSON.stringify(daten));
 
-  anzeigen();
+anzeigen();
 
 }
 
 function anzeigen(){
 
-  let gesamt=0,gew=0,heut=0,mon=0;
+let gesamt=0;
 
-  const stand={"Zurndorf WA":0,"Zurndorf WE":0,"Bruck":0,"Wien":0};
+let gewinn=0;
 
-  const liste=document.getElementById('liste');
+let ausgaben=0;
 
-  const filter=document.getElementById('suche').value.toLowerCase();
+let monat=0;
 
-  liste.innerHTML='';
+let standorte={
 
-  const heuteStr=new Date().toLocaleDateString('de-AT');
+"Zurndorf WA":0,
 
-  const monatNr=new Date().getMonth();
+"Zurndorf WE":0,
 
-  daten.forEach((x,i)=>{
+"Bruck":0,
 
-    const d=new Date(x.datum);
+"Wien":0
 
-    const ds=d.toLocaleDateString('de-AT');
+};
 
-    gesamt+=x.umsatz;
+const filter=document.getElementById("suche").value.toLowerCase();
 
-    gew+=x.profit;
+const liste=document.getElementById("liste");
 
-    if(ds===heuteStr) heut+=x.umsatz;
+liste.innerHTML="";
 
-    if(d.getMonth()===monatNr) mon+=x.umsatz;
+const aktuellerMonat=new Date().getMonth();
 
-    stand[x.firma]+=x.umsatz;
+daten.forEach((x,i)=>{
 
-    if(x.firma.toLowerCase().includes(filter)){
+const d=new Date(x.datum);
 
-      liste.innerHTML+=`<div class="item"><b>${x.firma}</b><div class="small">${ds}</div>Umsatz: ${euro(x.umsatz)}<br><span class="green">Gewinn: ${euro(x.profit)}</span><br><button onclick="loeschen(${i})">Löschen</button></div>`;
+gesamt+=x.umsatz;
 
-    }
+gewinn+=x.profit;
 
-  });
+ausgaben+=x.einsatz;
 
-  document.getElementById('umsatz').innerText=euro(gesamt);
+if(d.getMonth()==aktuellerMonat){
 
-  document.getElementById('gewinn').innerText=euro(gew);
+monat+=x.umsatz;
 
-  document.getElementById('heute').innerText=euro(heut);
+}
 
-  document.getElementById('monat').innerText=euro(mon);
+standorte[x.firma]+=x.umsatz;
 
-  document.getElementById('wa').innerText=euro(stand['Zurndorf WA']);
+if(x.firma.toLowerCase().includes(filter)){
 
-  document.getElementById('we').innerText=euro(stand['Zurndorf WE']);
+liste.innerHTML+=`
 
-  document.getElementById('bruck').innerText=euro(stand['Bruck']);
+<div class="item">
 
-  document.getElementById('wien').innerText=euro(stand['Wien']);
+<b>${x.firma}</b><br>
+
+<small>${d.toLocaleDateString("de-AT")}</small><br><br>
+
+Umsatz: ${euro(x.umsatz)}<br>
+
+<span class="green">Gewinn: ${euro(x.profit)}</span><br>
+
+Ausgaben: ${euro(x.einsatz)}<br>
+
+<button onclick="loeschen(${i})">Löschen</button>
+
+</div>
+
+`;
+
+}
+
+});
+
+document.getElementById("umsatz").innerText=euro(gesamt);
+
+document.getElementById("gewinn").innerText=euro(gewinn);
+
+document.getElementById("ausgaben").innerText=euro(ausgaben);
+
+document.getElementById("monat").innerText=euro(monat);
+
+document.getElementById("wa").innerText=euro(standorte["Zurndorf WA"]);
+
+document.getElementById("we").innerText=euro(standorte["Zurndorf WE"]);
+
+document.getElementById("bruck").innerText=euro(standorte["Bruck"]);
+
+document.getElementById("wien").innerText=euro(standorte["Wien"]);
 
 }
 
