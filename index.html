@@ -8,171 +8,55 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>YESI Control V3</title>
+<title>YESI V4</title>
 
 <style>
 
-*{margin:0;padding:0;box-sizing:border-box}
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif}
 
-body{
+body{background:#eef2f7;padding:18px;color:#111827}
 
-background:#090c12;
+.card{background:#fff;border-radius:18px;padding:16px;margin-bottom:16px;box-shadow:0 8px 22px rgba(0,0,0,.08)}
 
-font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+.header{background:#111827;color:#fff}
 
-color:white;
+h1{font-size:28px}
 
-padding-bottom:90px;
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
 
-}
+.box{background:#f3f4f6;border-radius:12px;padding:12px}
 
-header{
+.value{font-size:24px;font-weight:700;margin-top:4px}
 
-background:#D4AF37;
+label{font-size:13px;color:#6b7280}
 
-color:#111;
+input,select{width:100%;padding:12px;border:1px solid #d1d5db;border-radius:10px;margin-top:6px;font-size:16px}
 
-padding:18px;
+button{width:100%;padding:13px;border:none;border-radius:12px;color:#fff;font-weight:700;margin-top:10px;font-size:16px}
 
-font-size:26px;
+.green{background:#16a34a}
 
-font-weight:700;
+.red{background:#dc2626}
 
-}
+.blue{background:#2563eb}
 
-.container{padding:15px}
+.item{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #eee}
 
-.card{
+.small{font-size:12px;color:#6b7280}
 
-background:#131924;
+.stockbar{height:8px;background:#e5e7eb;border-radius:10px;overflow:hidden;margin-top:8px}
 
-border-radius:18px;
+.fill{height:100%;background:#22c55e}
 
-padding:15px;
+.low{background:#ef4444}
 
-margin-bottom:15px;
+.badge{padding:4px 8px;border-radius:999px;font-size:11px;font-weight:700}
 
-}
+.ok{background:#dcfce7;color:#166534}
 
-.grid{
-
-display:grid;
-
-grid-template-columns:1fr 1fr;
-
-gap:10px;
-
-margin-top:12px;
-
-}
-
-.stat{
-
-background:#222B39;
-
-border-radius:12px;
-
-padding:10px;
-
-text-align:center;
-
-}
-
-.stat h2{font-size:28px}
-
-.machine{
-
-background:#1D2633;
-
-border-radius:14px;
-
-padding:12px;
-
-margin-top:10px;
-
-}
-
-input{
-
-width:100%;
-
-padding:12px;
-
-border:none;
-
-border-radius:10px;
-
-background:#2B3444;
-
-color:white;
-
-margin-top:8px;
-
-}
-
-button{
-
-width:100%;
-
-padding:12px;
-
-margin-top:10px;
-
-border:none;
-
-border-radius:12px;
-
-background:#D4AF37;
-
-color:#111;
-
-font-weight:bold;
-
-font-size:17px;
-
-}
-
-.nav{
-
-position:fixed;
-
-bottom:0;
-
-left:0;
-
-right:0;
-
-background:#111827;
-
-display:flex;
-
-justify-content:space-around;
-
-padding:12px;
-
-}
-
-.nav button{
-
-background:none;
-
-color:#AAA;
-
-margin:0;
-
-padding:0;
-
-font-size:14px;
-
-}
-
-.active{color:#D4AF37!important}
-
-.page{display:none}
-
-.show{display:block}
+.warn{background:#fee2e2;color:#991b1b}
 
 </style>
 
@@ -180,49 +64,43 @@ font-size:14px;
 
 <body>
 
-<header>💰 YESI CONTROL V3</header>
+<div class="card header">
 
-<div class="container">
+<h1>YESI V4</h1>
 
-<!-- HOME -->
-
-<div id="home" class="page show">
-
-<div class="card">
-
-<h2>Gesamtübersicht</h2>
+<p>Zentrallager Zurndorf</p>
 
 <div class="grid">
 
-<div class="stat">
+<div class="box">
 
-<div>Umsatz</div>
+<label>Gesamtumsatz</label>
 
-<h2 id="umsatz">€0</h2>
-
-</div>
-
-<div class="stat">
-
-<div>Gewinn</div>
-
-<h2 id="gewinn">€0</h2>
+<div class="value" id="umsatz">€ 1486.30</div>
 
 </div>
 
-<div class="stat">
+<div class="box">
 
-<div>Ausgaben</div>
+<label>Gewinn</label>
 
-<h2 id="ausgaben">€0</h2>
+<div class="value" id="gewinn">€ 1401.80</div>
 
 </div>
 
-<div class="stat">
+<div class="box">
 
-<div>Produkte</div>
+<label>Bargeld</label>
 
-<h2>124</h2>
+<div class="value" id="cash">€ 420</div>
+
+</div>
+
+<div class="box">
+
+<label>Ausgaben</label>
+
+<div class="value" id="ausgaben">€ 84.50</div>
 
 </div>
 
@@ -232,209 +110,207 @@ font-size:14px;
 
 <div class="card">
 
-<h2>Meine Automaten</h2>
+<h2>Neue Ausgabe</h2>
 
-<div class="machine">
+<input id="name" placeholder="Artikel">
 
-<b>🏭 Automat 1</b><br>
+<input id="preis" type="number" step="0.01" placeholder="Betrag">
 
-Firma Zurndorf<br><br>
-
-Heute: <b>€0.00</b>
+<button class="green" onclick="addExpense()">Ausgabe speichern</button>
 
 </div>
-
-<div class="machine">
-
-<b>🏫 Automat 2</b><br>
-
-Schule<br><br>
-
-Heute: <b>€0.00</b>
-
-</div>
-
-<div class="machine">
-
-<b>🏢 Automat 3</b><br>
-
-Büro<br><br>
-
-Heute: <b>€0.00</b>
-
-</div>
-
-<div class="machine">
-
-<b>🚚 Automat 4</b><br>
-
-Werk<br><br>
-
-Heute: <b>€0.00</b>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- KASSE -->
-
-<div id="kasse" class="page">
 
 <div class="card">
 
-<h2>💶 Kassensturz</h2>
+<h2>Lagerverwaltung</h2>
 
-<input id="e2" type="number" placeholder="2€ Münzen">
+<select id="produkt">
 
-<input id="e1" type="number" placeholder="1€ Münzen">
+<option value="0">Coca Cola 0,5L</option>
 
-<input id="c50" type="number" placeholder="50 Cent">
+<option value="1">Red Bull</option>
 
-<input id="s5" type="number" placeholder="5€ Scheine">
+<option value="2">Leberkäsesemmel</option>
 
-<input id="s10" type="number" placeholder="10€ Scheine">
+</select>
 
-<input id="s20" type="number" placeholder="20€ Scheine">
+<input id="menge" type="number" value="1" min="1">
 
-<button onclick="calcCash()">Kasse berechnen</button>
+<button class="blue" onclick="wareneingang()">Wareneingang +</button>
 
-<h1 id="cashTotal" style="margin-top:15px">€0.00</h1>
-
-</div>
+<button class="red" onclick="befuellen()">Automat befüllen −</button>
 
 </div>
-
-<!-- LAGER -->
-
-<div id="lager" class="page">
 
 <div class="card">
 
-<h2>📦 Lagerbestand</h2>
+<h2>Produkte</h2>
 
-<div class="machine">
-
-Schnitzelsemmel
-
-<div>18 Stück</div>
+<div id="lager"></div>
 
 </div>
-
-<div class="machine">
-
-Leberkäse
-
-<div>12 Stück</div>
-
-</div>
-
-<div class="machine">
-
-Cola 0,5l
-
-<div>25 Stück</div>
-
-</div>
-
-<div class="machine">
-
-Red Bull
-
-<div>16 Stück</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- BERICHT -->
-
-<div id="bericht" class="page">
 
 <div class="card">
 
-<h2>📈 Berichte</h2>
+<h2>Ausgaben Historie</h2>
 
-<p>• Tagesumsatz</p>
-
-<p>• Monatsgewinn</p>
-
-<p>• Ausgaben</p>
-
-<p>• PDF Export (V3.1)</p>
-
-<button>Bericht erstellen</button>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="nav">
-
-<button class="active" onclick="openPage('home',this)">🏠<br>Home</button>
-
-<button onclick="openPage('kasse',this)">💶<br>Kasse</button>
-
-<button onclick="openPage('lager',this)">📦<br>Lager</button>
-
-<button onclick="openPage('bericht',this)">📈<br>Berichte</button>
+<div id="history"></div>
 
 </div>
 
 <script>
 
-function openPage(id,el){
+let umsatz=1486.30;
 
-document.querySelectorAll(".page").forEach(p=>p.classList.remove("show"))
+let bargeld=420;
 
-document.getElementById(id).classList.add("show")
+let produkte=[
 
-document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"))
+{name:"Coca Cola 0,5L",stock:18,min:10,buy:0.78,sell:2.00},
 
-el.classList.add("active")
+{name:"Red Bull",stock:6,min:10,buy:1.05,sell:2.50},
 
-}
+{name:"Leberkäsesemmel",stock:14,min:8,buy:2.10,sell:4.50}
 
-function v(id){
+];
 
-return Number(document.getElementById(id).value)||0
+let ausgaben=[
 
-}
+{name:"Coca Cola 24x",amount:18.90,date:"24.09.26"},
 
-function calcCash(){
+{name:"Red Bull",amount:31.20,date:"24.09.26"},
 
-let sum=
+{name:"Ölz Linzer",amount:34.40,date:"23.09.26"}
 
-v("e2")*2+
+];
 
-v("e1")+
+function totalExpenses(){
 
-v("c50")*0.5+
-
-v("s5")*5+
-
-v("s10")*10+
-
-v("s20")*20
-
-document.getElementById("cashTotal").innerHTML="€"+sum.toFixed(2)
-
-localStorage.setItem("cash",sum)
+return ausgaben.reduce((a,b)=>a+b.amount,0);
 
 }
 
-window.onload=function(){
+function profit(){
 
-let cash=localStorage.getItem("cash")||0
-
-document.getElementById("cashTotal").innerHTML="€"+Number(cash).toFixed(2)
+return (umsatz-totalExpenses()).toFixed(2);
 
 }
+
+function refresh(){
+
+document.getElementById("umsatz").innerHTML="€ "+umsatz.toFixed(2);
+
+document.getElementById("cash").innerHTML="€ "+bargeld;
+
+document.getElementById("ausgaben").innerHTML="€ "+totalExpenses().toFixed(2);
+
+document.getElementById("gewinn").innerHTML="€ "+profit();
+
+let lager=document.getElementById("lager");
+
+lager.innerHTML="";
+
+produkte.forEach((p)=>{
+
+let percent=Math.min(100,(p.stock/24)*100);
+
+let color=p.stock<=p.min?"low":"fill";
+
+let badge=p.stock<=p.min?'<span class="badge warn">Nachbestellen</span>':'<span class="badge ok">OK</span>';
+
+lager.innerHTML+=`
+
+<div class="item">
+
+<div style="flex:1">
+
+<b>${p.name}</b><br>
+
+<span class="small">${p.stock} Stück · EK €${p.buy}</span>
+
+<div class="stockbar"><div class="${color}" style="width:${percent}%"></div></div>
+
+</div>
+
+<div>${badge}</div>
+
+</div>`;
+
+});
+
+let h=document.getElementById("history");
+
+h.innerHTML="";
+
+ausgaben.forEach(e=>{
+
+h.innerHTML+=`
+
+<div class="item">
+
+<div>
+
+<b>${e.name}</b><br>
+
+<span class="small">${e.date}</span>
+
+</div>
+
+<div style="color:#dc2626;font-weight:bold">- € ${e.amount.toFixed(2)}</div>
+
+</div>`;
+
+});
+
+}
+
+function addExpense(){
+
+let n=document.getElementById("name").value;
+
+let p=parseFloat(document.getElementById("preis").value);
+
+if(!n||!p)return;
+
+let d=new Date();
+
+let date=("0"+d.getDate()).slice(-2)+"."+("0"+(d.getMonth()+1)).slice(-2)+"."+String(d.getFullYear()).slice(-2);
+
+ausgaben.unshift({name:n,amount:p,date});
+
+document.getElementById("name").value="";
+
+document.getElementById("preis").value="";
+
+refresh();
+
+}
+
+function wareneingang(){
+
+let id=document.getElementById("produkt").value;
+
+let qty=parseInt(document.getElementById("menge").value);
+
+produkte[id].stock+=qty;
+
+refresh();
+
+}
+
+function befuellen(){
+
+let id=document.getElementById("produkt").value;
+
+let qty=parseInt(document.getElementById("menge").value);
+
+produkte[id].stock=Math.max(0,produkte[id].stock-qty);
+
+refresh();
+
+}
+
+refresh();
 
 </script>
 
