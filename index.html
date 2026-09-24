@@ -260,7 +260,7 @@ save();
 
 function addBooking(){
 
-const i=document.getElementById("automat").selectedIndex;
+const m = currentMachine();
 
 const type=document.getElementById("typ").value;
 
@@ -288,15 +288,15 @@ date:new Date().toLocaleDateString("de-DE")
 
 };
 
-data[i].bookings.push(booking);
+m.bookings.push(booking);
 
 if(type==="income"){
 
-data[i].income+=amount;
+  m.income += amount;
 
 }else{
 
-data[i].expense+=amount;
+  m.expense += amount;
 
 }
 
