@@ -142,6 +142,26 @@ let data=JSON.parse(localStorage.getItem(KEY))||[
 
 ];
 
+let activeMachine = 0;
+
+function currentMachine(){
+
+  return data[activeMachine];
+
+}
+
+function switchMachine(){
+
+  activeMachine = Number(
+
+    document.getElementById("activeMachine").value
+
+  );
+
+  render();
+
+}
+
 function euro(v){return "€"+Number(v).toFixed(2)}
 
 function save(){
