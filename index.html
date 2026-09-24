@@ -10,53 +10,45 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>YESI V4</title>
+<title>YESI V4 Automaten</title>
 
 <style>
 
-*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif}
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,Arial}
 
-body{background:#eef2f7;padding:18px;color:#111827}
+body{background:#f3f4f6;padding:16px;color:#111}
 
-.card{background:#fff;border-radius:18px;padding:16px;margin-bottom:16px;box-shadow:0 8px 22px rgba(0,0,0,.08)}
+h1{font-size:28px;margin-bottom:4px}
 
-.header{background:#111827;color:#fff}
+.sub{color:#666;margin-bottom:18px}
 
-h1{font-size:28px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
 
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.card{background:#fff;border-radius:16px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
 
-.box{background:#f3f4f6;border-radius:12px;padding:12px}
+.black{background:#111;color:#fff}
 
-.value{font-size:24px;font-weight:700;margin-top:4px}
+.green{background:#ecfdf5}
 
-label{font-size:13px;color:#6b7280}
+.red{background:#fef2f2}
 
-input,select{width:100%;padding:12px;border:1px solid #d1d5db;border-radius:10px;margin-top:6px;font-size:16px}
+.machine{margin-bottom:14px}
 
-button{width:100%;padding:13px;border:none;border-radius:12px;color:#fff;font-weight:700;margin-top:10px;font-size:16px}
+.machine h2{margin-bottom:10px}
 
-.green{background:#16a34a}
+.row{display:flex;justify-content:space-between;margin:4px 0}
 
-.red{background:#dc2626}
+.small{font-size:13px;color:#666}
 
-.blue{background:#2563eb}
+input,select{width:100%;padding:12px;border-radius:12px;border:1px solid #ddd;margin-top:8px}
 
-.item{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #eee}
+button{width:100%;padding:14px;border:none;border-radius:12px;background:#111;color:#fff;font-size:16px;margin-top:12px}
 
-.small{font-size:12px;color:#6b7280}
+.list{margin-top:10px;border-top:1px solid #eee;padding-top:8px}
 
-.stockbar{height:8px;background:#e5e7eb;border-radius:10px;overflow:hidden;margin-top:8px}
+.item{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f1f1;font-size:14px}
 
-.fill{height:100%;background:#22c55e}
-
-.low{background:#ef4444}
-
-.badge{padding:4px 8px;border-radius:999px;font-size:11px;font-weight:700}
-
-.ok{background:#dcfce7;color:#166534}
-
-.warn{background:#fee2e2;color:#991b1b}
+.plus{color:#16a34a}.minus{color:#dc2626}
 
 </style>
 
@@ -64,317 +56,157 @@ button{width:100%;padding:13px;border:none;border-radius:12px;color:#fff;font-we
 
 <body>
 
-<div class="card header">
-
 <h1>YESI V4</h1>
 
-<p>Zentrallager Zurndorf</p>
+<div class="sub">4 Automaten · Einnahmen · Ausgaben</div>
 
 <div class="grid">
 
-<div class="box">
+<div class="card black">
 
-<label>Gesamtumsatz</label>
+<div class="small" style="color:#bbb">Gesamt Umsatz</div>
 
-<div class="value" id="umsatz">€ 1486.30</div>
-
-</div>
-
-<div class="box">
-
-<label>Gewinn</label>
-
-<div class="value" id="gewinn">€ 1401.80</div>
+<h2 id="umsatz">€0.00</h2>
 
 </div>
 
-<div class="box">
+<div class="card red">
 
-<label>Bargeld</label>
+<div class="small">Gesamt Ausgaben</div>
 
-<div class="value" id="cash">€ 420</div>
-
-</div>
-
-<div class="box">
-
-<label>Ausgaben</label>
-
-<div class="value" id="ausgaben">€ 84.50</div>
+<h2 id="ausgaben">€0.00</h2>
 
 </div>
 
 </div>
 
-</div>
+<div id="automaten"></div>
 
 <div class="card">
 
-<h2>Neue Ausgabe</h2>
+<h2>Neue Buchung</h2>
 
-<input id="name" placeholder="Artikel">
+<select id="automat">
 
-<input id="preis" type="number" step="0.01" placeholder="Betrag">
+<option>Automat 1</option>
 
-<button class="green" onclick="addExpense()">Ausgabe speichern</button>
+<option>Automat 2</option>
 
-</div>
+<option>Automat 3</option>
 
-<div class="card">
-
-<h2>Lagerverwaltung</h2>
-
-<select id="produkt">
-
-<option value="0">Coca Cola 0,5L</option>
-
-<option value="1">Red Bull</option>
-
-<option value="2">Leberkäsesemmel</option>
+<option>Automat 4</option>
 
 </select>
 
-<input id="menge" type="number" value="1" min="1">
+<select id="typ">
 
-<button class="blue" onclick="wareneingang()">Wareneingang +</button>
+<option value="income">Einnahme</option>
 
-<button class="red" onclick="befuellen()">Automat befüllen −</button>
+<option value="expense">Ausgabe</option>
 
-</div>
+</select>
 
-<div class="card">
+<input type="number" id="betrag" placeholder="Betrag in €" step="0.01">
 
-<h2>Produkte</h2>
+<input type="text" id="notiz" placeholder="Notiz (z.B. Cola Einkauf)">
 
-<div id="lager"></div>
-
-</div>
-
-<div class="card">
-
-<h2>Ausgaben Historie</h2>
-
-<div id="history"></div>
+<button onclick="addBooking()">Speichern</button>
 
 </div>
 
 <script>
 
-let umsatz=1486.30;
+const KEY="yesi_v4";
 
-let bargeld=420;
+let data=JSON.parse(localStorage.getItem(KEY))||[
 
-let produkte=[
+{name:"Automat 1",income:0,expense:0,bookings:[]},
 
-{name:"Coca Cola 0,5L",stock:18,min:10,buy:0.78,sell:2.00},
+{name:"Automat 2",income:0,expense:0,bookings:[]},
 
-{name:"Red Bull",stock:6,min:10,buy:1.05,sell:2.50},
+{name:"Automat 3",income:0,expense:0,bookings:[]},
 
-{name:"Leberkäsesemmel",stock:14,min:8,buy:2.10,sell:4.50}
-
-];
-
-let ausgaben=[
-
-{name:"Coca Cola 24x",amount:18.90,date:"24.09.26"},
-
-{name:"Red Bull",amount:31.20,date:"24.09.26"},
-
-{name:"Ölz Linzer",amount:34.40,date:"23.09.26"}
+{name:"Automat 4",income:0,expense:0,bookings:[]}
 
 ];
 
-function totalExpenses(){
+function euro(v){return "€"+Number(v).toFixed(2)}
 
-return ausgaben.reduce((a,b)=>a+b.amount,0);
+function save(){
 
-}
-
-function profit(){
-
-return (umsatz-totalExpenses()).toFixed(2);
+localStorage.setItem(KEY,JSON.stringify(data));
 
 }
 
-function refresh(){
+function render(){
 
-document.getElementById("umsatz").innerHTML="€ "+umsatz.toFixed(2);
+let totalIncome=0,totalExpense=0;
 
-document.getElementById("cash").innerHTML="€ "+bargeld;
+const wrap=document.getElementById("automaten");
 
-document.getElementById("ausgaben").innerHTML="€ "+totalExpenses().toFixed(2);
+wrap.innerHTML="";
 
-document.getElementById("gewinn").innerHTML="€ "+profit();
+data.forEach((m,i)=>{
 
-let lager=document.getElementById("lager");
+totalIncome+=m.income;
 
-lager.innerHTML="";
+totalExpense+=m.expense;
 
-<div class="card">
+const card=document.createElement("div");
 
-<h2>Meine Automaten</h2>
+card.className="card machine";
+
+let html=`
+
+<h2>${m.name}</h2>
+
+<div class="row">
+
+<span>Einnahmen</span>
+
+<b style="color:#16a34a">${euro(m.income)}</b>
+
+</div>
+
+<div class="row">
+
+<span>Ausgaben</span>
+
+<b style="color:#dc2626">${euro(m.expense)}</b>
+
+</div>
+
+<div class="row">
+
+<span>Gewinn</span>
+
+<b>${euro(m.income-m.expense)}</b>
+
+</div>
+
+<div class="list">
+
+`;
+
+if(m.bookings.length===0){
+
+html+=`<div class="small">Keine Buchungen</div>`;
+
+}else{
+
+[...m.bookings].reverse().forEach(b=>{
+
+html+=`
 
 <div class="item">
 
-<div>
+<span>${b.note}</span>
 
-<b>Firma A</b><br>
+<span class="${b.type==="income"?"plus":"minus"}">
 
-<span class="small">Snack + Kaffee</span>
+${b.type==="income"?"+":"-"}${euro(b.amount)}
 
-</div>
-
-<button style="width:110px;background:#2563eb" onclick="openMachine(0)">Öffnen</button>
-
-</div>
-
-<div class="item">
-
-<div>
-
-<b>Firma B</b><br>
-
-<span class="small">Vendo G Snack</span>
-
-</div>
-
-<button style="width:110px;background:#2563eb" onclick="openMachine(1)">Öffnen</button>
-
-</div>
-
-<div class="item">
-
-<div>
-
-<b>Schule Zurndorf</b><br>
-
-<span class="small">Kinderautomat</span>
-
-</div>
-
-<button style="width:110px;background:#2563eb" onclick="openMachine(2)">Öffnen</button>
-
-</div>
-
-<div class="item">
-
-<div>
-
-<b>Parkplatz 24/7</b><br>
-
-<span class="small">Snackautomat</span>
-
-</div>
-
-<button style="width:110px;background:#2563eb" onclick="openMachine(3)">Öffnen</button>
-
-</div>
-
-</div>
-
-<div class="card" id="machineCard" style="display:none">
-
-<h2 id="machineTitle"></h2>
-
-<div class="item">
-
-<span>Coca Cola</span>
-
-<div>
-
-<button onclick="changeFill(0,-1)">−</button>
-
-<span id="f0">0</span>
-
-<button onclick="changeFill(0,1)">+</button>
-
-</div>
-
-</div>
-
-<div class="item">
-
-<span>Red Bull</span>
-
-<div>
-
-<button onclick="changeFill(1,-1)">−</button>
-
-<span id="f1">0</span>
-
-<button onclick="changeFill(1,1)">+</button>
-
-</div>
-
-</div>
-
-<div class="item">
-
-<span>Leberkäse</span>
-
-<div>
-
-<button onclick="changeFill(2,-1)">−</button>
-
-<span id="f2">0</span>
-
-<button onclick="changeFill(2,1)">+</button>
-
-</div>
-
-</div>
-
-<button class="green" onclick="saveFill()">Befüllung speichern</button>
-
-</div>
-
-produkte.forEach((p)=>{
-
-let percent=Math.min(100,(p.stock/24)*100);
-
-let color=p.stock<=p.min?"low":"fill";
-
-let badge=p.stock<=p.min?'<span class="badge warn">Nachbestellen</span>':'<span class="badge ok">OK</span>';
-
-lager.innerHTML+=`
-
-<div class="item">
-
-<div style="flex:1">
-
-<b>${p.name}</b><br>
-
-<span class="small">${p.stock} Stück · EK €${p.buy}</span>
-
-<div class="stockbar"><div class="${color}" style="width:${percent}%"></div></div>
-
-</div>
-
-<div>${badge}</div>
-
-</div>`;
-
-});
-
-let h=document.getElementById("history");
-
-h.innerHTML="";
-
-ausgaben.forEach(e=>{
-
-h.innerHTML+=`
-
-<div class="item">
-
-<div>
-
-<b>${e.name}</b><br>
-
-<span class="small">${e.date}</span>
-
-</div>
-
-<div style="color:#dc2626;font-weight:bold">- € ${e.amount.toFixed(2)}</div>
+</span>
 
 </div>`;
 
@@ -382,111 +214,73 @@ h.innerHTML+=`
 
 }
 
-function addExpense(){
+html+=`</div>`;
 
-let n=document.getElementById("name").value;
+card.innerHTML=html;
 
-let p=parseFloat(document.getElementById("preis").value);
+wrap.appendChild(card);
 
-if(!n||!p)return;
+});
 
-let d=new Date();
+document.getElementById("umsatz").innerText=euro(totalIncome);
 
-let date=("0"+d.getDate()).slice(-2)+"."+("0"+(d.getMonth()+1)).slice(-2)+"."+String(d.getFullYear()).slice(-2);
+document.getElementById("ausgaben").innerText=euro(totalExpense);
 
-ausgaben.unshift({name:n,amount:p,date});
-
-document.getElementById("name").value="";
-
-document.getElementById("preis").value="";
-
-refresh();
+save();
 
 }
 
-function wareneingang(){
+function addBooking(){
 
-let id=document.getElementById("produkt").value;
+const i=document.getElementById("automat").selectedIndex;
 
-let qty=parseInt(document.getElementById("menge").value);
+const type=document.getElementById("typ").value;
 
-produkte[id].stock+=qty;
+const amount=parseFloat(document.getElementById("betrag").value);
 
-refresh();
+const note=document.getElementById("notiz").value||"Ohne Notiz";
 
-}
+if(!amount||amount<=0){
 
-function befuellen(){
+alert("Betrag eingeben");
 
-let id=document.getElementById("produkt").value;
-
-let qty=parseInt(document.getElementById("menge").value);
-
-produkte[id].stock=Math.max(0,produkte[id].stock-qty);
-
-let machines=[
-
-{name:"Firma A",stock:[8,4,6]},
-
-{name:"Firma B",stock:[5,7,3]},
-
-{name:"Schule Zurndorf",stock:[12,2,0]},
-
-{name:"Parkplatz 24/7",stock:[9,6,5]}
-
-];
-
-let currentMachine=0;
-
-function openMachine(id){
-
-currentMachine=id;
-
-document.getElementById("machineCard").style.display="block";
-
-document.getElementById("machineTitle").innerHTML=machines[id].name;
-
-for(let i=0;i<3;i++){
-
-document.getElementById("f"+i).innerHTML=machines[id].stock[i];
+return;
 
 }
 
-window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
+const booking={
+
+type:type,
+
+amount:amount,
+
+note:note,
+
+date:new Date().toLocaleDateString("de-DE")
+
+};
+
+data[i].bookings.push(booking);
+
+if(type==="income"){
+
+data[i].income+=amount;
+
+}else{
+
+data[i].expense+=amount;
 
 }
 
-function changeFill(i,v){
+document.getElementById("betrag").value="";
 
-let value=machines[currentMachine].stock[i]+v;
+document.getElementById("notiz").value="";
 
-if(value<0)return;
-
-machines[currentMachine].stock[i]=value;
-
-document.getElementById("f"+i).innerHTML=value;
+render();
 
 }
 
-function saveFill(){
-
-for(let i=0;i<3;i++){
-
-produkte[i].stock=Math.max(0,produkte[i].stock-machines[currentMachine].stock[i]);
-
-}
-
-alert("Automat erfolgreich befüllt!");
-
-refresh();
-
-}
-
-refresh();
-
-}
-
-refresh();
+render();
 
 </script>
 
