@@ -98,17 +98,11 @@ button{width:100%;padding:14px;border:none;border-radius:12px;background:#111;co
 
 <h2>Neue Buchung</h2>
 
-<select id="automat">
+<div class="small">
 
-<option>Automat 1</option>
+  Buchung für: <b id="machineName">Automat 1</b>
 
-<option>Automat 2</option>
-
-<option>Automat 3</option>
-
-<option>Automat 4</option>
-
-</select>
+</div>
 
 <select id="typ">
 
@@ -159,6 +153,8 @@ function switchMachine(){
   );
 
   render();
+
+  document.getElementById("machineName").innerText = currentMachine().name;
 
 }
 
