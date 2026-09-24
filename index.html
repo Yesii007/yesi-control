@@ -4,153 +4,119 @@
 
 <head>
 
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-  <title>YESI V4</title>
+<title>YESI Control V4</title>
 
-  <style>
+<style>
 
-    *{
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif}
 
-      margin:0;
+body{background:#000;color:#fff}
 
-      padding:0;
+.header{background:#C8A11A;color:#000;padding:22px 18px;font-size:34px;font-weight:800}
 
-      box-sizing:border-box;
+.wrap{padding:16px}
 
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 
-    }
+.card{background:#151515;border-radius:18px;padding:16px}
 
-    body{
+.label{color:#9e9e9e;font-size:14px;margin-bottom:8px}
 
-      background:#f3f4f6;
+.value{font-size:30px;font-weight:700}
 
-      color:#111827;
+.panel{background:#111;border-radius:22px;padding:18px;margin-top:18px}
 
-      padding:16px;
+.panel h2{font-size:24px;margin-bottom:14px}
 
-    }
+select,input{width:100%;background:#242424;color:#fff;border:none;border-radius:12px;padding:14px;font-size:16px;margin-top:10px}
 
-    h1{
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 
-      font-size:28px;
+button{width:100%;margin-top:14px;background:#C8A11A;color:#000;border:none;border-radius:14px;padding:16px;font-size:18px;font-weight:700}
 
-      margin-bottom:4px;
+.item{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #262626}
 
-    }
+.small{font-size:13px;color:#888}
 
-    .sub{
+.plus{color:#22c55e;font-weight:700}.minus{color:#ef4444;font-weight:700}
 
-      color:#6b7280;
+.summary{margin-top:12px;padding-top:12px;border-top:1px solid #333}
 
-      margin-bottom:18px;
-
-    }
-
-    .card{
-
-      background:white;
-
-      border-radius:16px;
-
-      padding:14px;
-
-      box-shadow:0 2px 8px rgba(0,0,0,.08);
-
-      margin-bottom:14px;
-
-    }
-
-  </style>
-  
-  .grid{
-
-  display:grid;
-
-  grid-template-columns:1fr 1fr;
-
-  gap:10px;
-
-  margin-bottom:16px;
-
-}
-
-.black{
-
-  background:#111827;
-
-  color:white;
-
-}
-
-.red{
-
-  background:#fee2e2;
-
-}
-
-.label{
-
-  font-size:13px;
-
-  color:#6b7280;
-
-  margin-bottom:6px;
-
-}
-
-.black .label{
-
-  color:#d1d5db;
-
-}
+</style>
 
 </head>
 
 <body>
 
-  <h1>YESI V4</h1>
+<div class="header">YESI Control</div>
 
-  <div class="sub">4 Automaten · Einnahmen · Ausgaben</div>
-  
-  <div class="grid">
+<div class="wrap">
 
-  <div class="card black">
+<div class="grid">
 
-    <div class="label">Gesamtumsatz</div>
+<div class="card"><div class="label">Gesamtumsatz</div><div id="umsatz" class="value">€0,00</div></div>
 
-    <h2 id="umsatz">€0,00</h2>
+<div class="card"><div class="label">Gesamtgewinn</div><div id="gewinn" class="value">€0,00</div></div>
 
-  </div>
+<div class="card"><div class="label">Gesamtausgaben</div><div id="ausgaben" class="value">€0,00</div></div>
 
-  <div class="card">
-
-    <div class="label">Gewinn</div>
-
-    <h2 id="gewinn">€0,00</h2>
-
-  </div>
-
-  <div class="card">
-
-    <div class="label">Bargeld</div>
-
-    <h2 id="bargeld">€0,00</h2>
-
-  </div>
-
-  <div class="card red">
-
-    <div class="label">Ausgaben</div>
-
-    <h2 id="ausgaben">€0,00</h2>
-
-  </div>
+<div class="card"><div class="label">Bargeld</div><div id="bargeld" class="value">€0,00</div></div>
 
 </div>
+
+<div class="panel">
+
+<h2>Neue Buchung</h2>
+
+<select id="machine"><option>WA</option><option>WE</option><option>Bruck</option><option>Wien</option></select>
+
+<div class="row"><select id="type"><option value="income">Einnahme</option><option value="expense">Ausgabe</option></select><input id="amount" type="number" step="0.01" placeholder="Betrag"></div>
+
+<input id="note" placeholder="Einkauf / Notiz">
+
+<button onclick="saveBooking()">Speichern</button>
+
+</div>
+
+<div class="panel">
+
+<h2>Verlauf</h2>
+
+<select id="view" onchange="render()"><option>WA</option><option>WE</option><option>Bruck</option><option>Wien</option></select>
+
+<div id="history"></div>
+
+<div class="summary"><div class="item"><span>Einnahmen</span><b id="mIncome">€0,00</b></div><div class="item"><span>Ausgaben</span><b id="mExpense">€0,00</b></div><div class="item"><span>Bargeld</span><b id="mCash">€0,00</b></div><div class="item"><span>Gewinn</span><b id="mProfit">€0,00</b></div></div>
+
+</div>
+
+</div>
+
+<script>
+
+const KEY='YESI_CONTROL_V4';
+
+const names=['WA','WE','Bruck','Wien'];
+
+let db=JSON.parse(localStorage.getItem(KEY))||names.map(n=>({name:n,revenue:0,expense:0,cash:0,history:[]}));
+
+const euro=v=>'€'+Number(v).toFixed(2).replace('.',',');
+
+function persist(){localStorage.setItem(KEY,JSON.stringify(db));}
+
+function totals(){let r=0,e=0,c=0;db.forEach(m=>{r+=m.revenue;e+=m.expense;c+=m.cash});document.getElementById('umsatz').innerText=euro(r);document.getElementById('ausgaben').innerText=euro(e);document.getElementById('bargeld').innerText=euro(c);document.getElementById('gewinn').innerText=euro(r-e);} 
+
+function render(){totals();const m=db.find(x=>x.name===document.getElementById('view').value);document.getElementById('mIncome').innerText=euro(m.revenue);document.getElementById('mExpense').innerText=euro(m.expense);document.getElementById('mCash').innerText=euro(m.cash);document.getElementById('mProfit').innerText=euro(m.revenue-m.expense);const box=document.getElementById('history');box.innerHTML='';if(!m.history.length){box.innerHTML='<div class="small" style="padding:12px 0">Keine Buchungen</div>';return;}[...m.history].reverse().forEach(h=>{const d=document.createElement('div');d.className='item';d.innerHTML=`<div><div>${h.note}</div><div class="small">${h.date}</div></div><div class="${h.type==='income'?'plus':'minus'}">${h.type==='income'?'+':'-'} ${euro(h.amount)}</div>`;box.appendChild(d);});}
+
+function saveBooking(){const machine=document.getElementById('machine').value;const type=document.getElementById('type').value;const amount=parseFloat(document.getElementById('amount').value);const note=document.getElementById('note').value||'Ohne Notiz';if(!amount||amount<=0)return alert('Betrag eingeben');const m=db.find(x=>x.name===machine);m.history.push({type,amount,note,date:new Date().toLocaleDateString('de-DE')});if(type==='income'){m.revenue+=amount;m.cash+=amount;}else{m.expense+=amount;m.cash-=amount;}persist();document.getElementById('amount').value='';document.getElementById('note').value='';document.getElementById('view').value=machine;render();}
+
+render();
+
+</script>
 
 </body>
 
