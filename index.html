@@ -210,6 +210,124 @@ let lager=document.getElementById("lager");
 
 lager.innerHTML="";
 
+<div class="card">
+
+<h2>Meine Automaten</h2>
+
+<div class="item">
+
+<div>
+
+<b>Firma A</b><br>
+
+<span class="small">Snack + Kaffee</span>
+
+</div>
+
+<button style="width:110px;background:#2563eb" onclick="openMachine(0)">Öffnen</button>
+
+</div>
+
+<div class="item">
+
+<div>
+
+<b>Firma B</b><br>
+
+<span class="small">Vendo G Snack</span>
+
+</div>
+
+<button style="width:110px;background:#2563eb" onclick="openMachine(1)">Öffnen</button>
+
+</div>
+
+<div class="item">
+
+<div>
+
+<b>Schule Zurndorf</b><br>
+
+<span class="small">Kinderautomat</span>
+
+</div>
+
+<button style="width:110px;background:#2563eb" onclick="openMachine(2)">Öffnen</button>
+
+</div>
+
+<div class="item">
+
+<div>
+
+<b>Parkplatz 24/7</b><br>
+
+<span class="small">Snackautomat</span>
+
+</div>
+
+<button style="width:110px;background:#2563eb" onclick="openMachine(3)">Öffnen</button>
+
+</div>
+
+</div>
+
+<div class="card" id="machineCard" style="display:none">
+
+<h2 id="machineTitle"></h2>
+
+<div class="item">
+
+<span>Coca Cola</span>
+
+<div>
+
+<button onclick="changeFill(0,-1)">−</button>
+
+<span id="f0">0</span>
+
+<button onclick="changeFill(0,1)">+</button>
+
+</div>
+
+</div>
+
+<div class="item">
+
+<span>Red Bull</span>
+
+<div>
+
+<button onclick="changeFill(1,-1)">−</button>
+
+<span id="f1">0</span>
+
+<button onclick="changeFill(1,1)">+</button>
+
+</div>
+
+</div>
+
+<div class="item">
+
+<span>Leberkäse</span>
+
+<div>
+
+<button onclick="changeFill(2,-1)">−</button>
+
+<span id="f2">0</span>
+
+<button onclick="changeFill(2,1)">+</button>
+
+</div>
+
+</div>
+
+<button class="green" onclick="saveFill()">Befüllung speichern</button>
+
+</div>
+
 produkte.forEach((p)=>{
 
 let percent=Math.min(100,(p.stock/24)*100);
