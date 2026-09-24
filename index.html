@@ -1,312 +1,156 @@
-
-
 <!DOCTYPE html>
 
 <html lang="de">
 
 <head>
 
-<meta charset="UTF-8">
+  <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>YESI V4 Automaten</title>
+  <title>YESI V4</title>
 
-<style>
+  <style>
 
-*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,Arial}
+    *{
 
-body{background:#f3f4f6;padding:16px;color:#111}
+      margin:0;
 
-h1{font-size:28px;margin-bottom:4px}
+      padding:0;
 
-.sub{color:#666;margin-bottom:18px}
+      box-sizing:border-box;
 
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 
-.card{background:#fff;border-radius:16px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+    }
 
-.black{background:#111;color:#fff}
+    body{
 
-.green{background:#ecfdf5}
+      background:#f3f4f6;
 
-.red{background:#fef2f2}
+      color:#111827;
 
-.machine{margin-bottom:14px}
+      padding:16px;
 
-.machine h2{margin-bottom:10px}
+    }
 
-.row{display:flex;justify-content:space-between;margin:4px 0}
+    h1{
 
-.small{font-size:13px;color:#666}
+      font-size:28px;
 
-input,select{width:100%;padding:12px;border-radius:12px;border:1px solid #ddd;margin-top:8px}
+      margin-bottom:4px;
 
-button{width:100%;padding:14px;border:none;border-radius:12px;background:#111;color:#fff;font-size:16px;margin-top:12px}
+    }
 
-.list{margin-top:10px;border-top:1px solid #eee;padding-top:8px}
+    .sub{
 
-.item{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f1f1;font-size:14px}
+      color:#6b7280;
 
-.plus{color:#16a34a}.minus{color:#dc2626}
+      margin-bottom:18px;
 
-</style>
+    }
+
+    .card{
+
+      background:white;
+
+      border-radius:16px;
+
+      padding:14px;
+
+      box-shadow:0 2px 8px rgba(0,0,0,.08);
+
+      margin-bottom:14px;
+
+    }
+
+  </style>
+  
+  .grid{
+
+  display:grid;
+
+  grid-template-columns:1fr 1fr;
+
+  gap:10px;
+
+  margin-bottom:16px;
+
+}
+
+.black{
+
+  background:#111827;
+
+  color:white;
+
+}
+
+.red{
+
+  background:#fee2e2;
+
+}
+
+.label{
+
+  font-size:13px;
+
+  color:#6b7280;
+
+  margin-bottom:6px;
+
+}
+
+.black .label{
+
+  color:#d1d5db;
+
+}
 
 </head>
 
 <body>
 
-<h1>YESI V4</h1>
+  <h1>YESI V4</h1>
 
-<div class="sub">4 Automaten · Einnahmen · Ausgaben</div>
+  <div class="sub">4 Automaten · Einnahmen · Ausgaben</div>
+  
+  <div class="grid">
 
-<select id="activeMachine" onchange="switchMachine()">
+  <div class="card black">
 
-  <option value="0">🥤 Automat 1</option>
+    <div class="label">Gesamtumsatz</div>
 
-  <option value="1">🥤 Automat 2</option>
+    <h2 id="umsatz">€0,00</h2>
 
-  <option value="2">🥤 Automat 3</option>
+  </div>
 
-  <option value="3">🥤 Automat 4</option>
+  <div class="card">
 
-</select>
+    <div class="label">Gewinn</div>
 
-<div class="grid">
+    <h2 id="gewinn">€0,00</h2>
 
-<div class="card black">
+  </div>
 
-<div class="small" style="color:#bbb">Gesamt Umsatz</div>
+  <div class="card">
 
-<h2 id="umsatz">€0.00</h2>
+    <div class="label">Bargeld</div>
 
-</div>
+    <h2 id="bargeld">€0,00</h2>
 
-<div class="card red">
+  </div>
 
-<div class="small">Gesamt Ausgaben</div>
+  <div class="card red">
 
-<h2 id="ausgaben">€0.00</h2>
+    <div class="label">Ausgaben</div>
 
-</div>
+    <h2 id="ausgaben">€0,00</h2>
 
-</div>
-
-<div id="automaten"></div>
-
-<div class="card">
-
-<h2>Neue Buchung</h2>
-
-<div class="small">
-
-  Buchung für: <b id="machineName">Automat 1</b>
+  </div>
 
 </div>
-
-<select id="typ">
-
-<option value="income">Einnahme</option>
-
-<option value="expense">Ausgabe</option>
-
-</select>
-
-<input type="number" id="betrag" placeholder="Betrag in €" step="0.01">
-
-<input type="text" id="notiz" placeholder="Notiz (z.B. Cola Einkauf)">
-
-<button onclick="addBooking()">Speichern</button>
-
-</div>
-
-<script>
-
-const KEY="yesi_v4";
-
-let data=JSON.parse(localStorage.getItem(KEY))||[
-
-{name:"Automat 1",income:0,expense:0,bookings:[]},
-
-{name:"Automat 2",income:0,expense:0,bookings:[]},
-
-{name:"Automat 3",income:0,expense:0,bookings:[]},
-
-{name:"Automat 4",income:0,expense:0,bookings:[]}
-
-];
-
-let activeMachine = 0;
-
-function currentMachine(){
-
-  return data[activeMachine];
-
-}
-
-function switchMachine(){
-
-  activeMachine = Number(
-
-    document.getElementById("activeMachine").value
-
-  );
-
-  render();
-
-  document.getElementById("machineName").innerText = currentMachine().name;
-
-}
-
-function euro(v){return "€"+Number(v).toFixed(2)}
-
-function save(){
-
-localStorage.setItem(KEY,JSON.stringify(data));
-
-}
-
-function render(){
-
-let totalIncome=0,totalExpense=0;
-
-const wrap=document.getElementById("automaten");
-
-wrap.innerHTML="";
-
-const m = currentMachine();
-
-totalIncome+=m.income;
-
-totalExpense+=m.expense;
-
-const card=document.createElement("div");
-
-card.className="card machine";
-
-let html=`
-
-<h2>${m.name}</h2>
-
-<div class="row">
-
-<span>Einnahmen</span>
-
-<b style="color:#16a34a">${euro(m.income)}</b>
-
-</div>
-
-<div class="row">
-
-<span>Ausgaben</span>
-
-<b style="color:#dc2626">${euro(m.expense)}</b>
-
-</div>
-
-<div class="row">
-
-<span>Gewinn</span>
-
-<b>${euro(m.income-m.expense)}</b>
-
-</div>
-
-<div class="list">
-
-`;
-
-if(m.bookings.length===0){
-
-html+=`<div class="small">Keine Buchungen</div>`;
-
-}else{
-
-[...m.bookings].reverse().forEach(b=>{
-
-html+=`
-
-<div class="item">
-
-<span>${b.note}</span>
-
-<span class="${b.type==="income"?"plus":"minus"}">
-
-${b.type==="income"?"+":"-"}${euro(b.amount)}
-
-</span>
-
-</div>`;
-
-}
-
-html+=`</div>`;
-
-card.innerHTML=html;
-
-wrap.appendChild(card);
-
-document.getElementById("umsatz").innerText=euro(totalIncome);
-
-document.getElementById("ausgaben").innerText=euro(totalExpense);
-
-save();
-
-}
-
-function addBooking(){
-
-const m = currentMachine();
-
-const type=document.getElementById("typ").value;
-
-const amount=parseFloat(document.getElementById("betrag").value);
-
-const note=document.getElementById("notiz").value||"Ohne Notiz";
-
-if(!amount||amount<=0){
-
-alert("Betrag eingeben");
-
-return;
-
-}
-
-const booking={
-
-type:type,
-
-amount:amount,
-
-note:note,
-
-date:new Date().toLocaleDateString("de-DE")
-
-};
-
-m.bookings.push(booking);
-
-if(type==="income"){
-
-  m.income += amount;
-
-}else{
-
-  m.expense += amount;
-
-}
-
-document.getElementById("betrag").value="";
-
-document.getElementById("notiz").value="";
-
-render();
-
-}
-
-render();
-
-</script>
 
 </body>
 
