@@ -424,6 +424,64 @@ let qty=parseInt(document.getElementById("menge").value);
 
 produkte[id].stock=Math.max(0,produkte[id].stock-qty);
 
+let machines=[
+
+{name:"Firma A",stock:[8,4,6]},
+
+{name:"Firma B",stock:[5,7,3]},
+
+{name:"Schule Zurndorf",stock:[12,2,0]},
+
+{name:"Parkplatz 24/7",stock:[9,6,5]}
+
+];
+
+let currentMachine=0;
+
+function openMachine(id){
+
+currentMachine=id;
+
+document.getElementById("machineCard").style.display="block";
+
+document.getElementById("machineTitle").innerHTML=machines[id].name;
+
+for(let i=0;i<3;i++){
+
+document.getElementById("f"+i).innerHTML=machines[id].stock[i];
+
+}
+
+window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
+
+}
+
+function changeFill(i,v){
+
+let value=machines[currentMachine].stock[i]+v;
+
+if(value<0)return;
+
+machines[currentMachine].stock[i]=value;
+
+document.getElementById("f"+i).innerHTML=value;
+
+}
+
+function saveFill(){
+
+for(let i=0;i<3;i++){
+
+produkte[i].stock=Math.max(0,produkte[i].stock-machines[currentMachine].stock[i]);
+
+}
+
+alert("Automat erfolgreich befüllt!");
+
+refresh();
+
+}
+
 refresh();
 
 }
